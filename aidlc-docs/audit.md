@@ -47,3 +47,43 @@
 **Context**: INCEPTION - Requirements Analysis (complete, awaiting user approval to proceed to User Stories)
 
 ---
+
+## Backup to GitHub
+**Timestamp**: 2026-08-31T15:00:53Z
+**User Input**: Provided GitHub repo (SanthoshGeorge/pet-groom-app) and a fine-grained PAT; cloud container's git proxy blocked the push (repo not in session's authorized sources). Pivoted to zip download; user hit a double-nested-folder extraction issue, resolved by working from the inner extracted folder which retained the original .git history.
+**AI Response**: Sent project as zip via SendUserFile. Confirmed via user's screenshot that commit b8c029c (same hash as this workspace's commit) is now live on GitHub at github.com/SanthoshGeorge/pet-groom-app.
+**Context**: Out-of-band housekeeping (source control backup), not an AI-DLC workflow stage. Returning to INCEPTION - Requirements Analysis approval gate.
+
+---
+
+## Requirements Analysis — Approved
+**Timestamp**: 2026-08-31T15:00:53Z
+**User Input**: "move to user stories"
+**AI Response**: Marked Requirements Analysis complete and approved. Proceeded to User Stories stage per user-stories.md.
+**Context**: INCEPTION - Requirements Analysis (approved, complete) -> INCEPTION - User Stories (starting)
+
+---
+
+## User Stories — Assessment and Plan Issued
+**Timestamp**: 2026-08-31T15:00:53Z
+**User Input**: N/A (awaiting response)
+**AI Response**: Created user-stories-assessment.md (decision: execute, justified by multi-persona + new user-facing functionality). Created story-generation-plan.md with recommended persona-based/journey-ordered breakdown approach and 6 planning questions (breakdown approach, guest-vs-account persona modeling, story granularity, acceptance criteria format, edge case coverage, owner override story structure). Presented to user and stopped per Part 1 gate (Step 13).
+**Context**: INCEPTION - User Stories, Part 1 - Planning (in progress, awaiting user answers)
+
+---
+
+## User Stories — Planning Answers Received
+**Timestamp**: 2026-08-31T15:00:53Z
+**User Input**: "1A, 2B, 3A, 4A, 5B, 6A"
+**AI Response**: Recorded answers into story-generation-plan.md. Analyzed for ambiguity/contradictions per Step 9 — none found (all clean single-letter answers, no vague/contradictory responses). Final plan: persona+journey breakdown; two personas (Guest Customer, Returning Customer) with some overlapping stories; coarse-grained stories (one per capability); Given/When/Then acceptance criteria; key edge cases called out explicitly now; owner override as its own distinct story. Presenting plan summary for explicit approval before generation (Step 13 gate).
+**Context**: INCEPTION - User Stories, Part 1 - Planning (answers analyzed, awaiting plan approval)
+
+---
+
+## User Stories — Plan Approved, Generation Complete
+**Timestamp**: 2026-08-31T15:00:53Z
+**User Input**: "approve and continue"
+**AI Response**: Executed story-generation-plan.md Steps A-G. Generated personas.md (3 personas: Guest Customer, Returning Customer, Shop Owner, with persona-to-story mapping table) and stories.md (13 stories: 3 Guest Customer, 3 Returning Customer, 6 Shop Owner, including SO-3 as the distinct owner-override story per Q6=A). All stories use Given/When/Then acceptance criteria with key edge cases embedded (double-booking races, canceling past appointments, mismatched guest lookups, override conflicts) per Q5=B. Presented completion message with REVIEW REQUIRED / WHAT'S NEXT prompt.
+**Context**: INCEPTION - User Stories, Part 2 - Generation (complete, awaiting user approval to proceed to Workflow Planning)
+
+---

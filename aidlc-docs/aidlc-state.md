@@ -24,8 +24,8 @@
 ## Stage Progress
 ### 🔵 INCEPTION PHASE
 - [x] Workspace Detection
-- [x] Requirements Analysis
-- [ ] User Stories (recommended next — multiple user types + new user-facing features)
+- [x] Requirements Analysis (approved by user)
+- [ ] User Stories — Part 2: Generation complete (stories.md + personas.md written), awaiting user approval
 - [ ] Workflow Planning
 - [ ] Application Design
 - [ ] Units Generation
