@@ -162,3 +162,19 @@
 **Context**: INCEPTION PHASE (complete) -> CONSTRUCTION PHASE (starting)
 
 ---
+
+## Functional Design (auth/customer/catalog) — Plan and Questions Issued
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "please proceed"
+**AI Response**: Created pet-grooming-booking-platform-auth-customer-catalog-functional-design-plan.md, scoping this first Construction pass to the auth/customer/catalog module group (per the internal build order in unit-of-work.md). Plan includes a checklist and 9 questions covering: owner matching/deduplication, account-linking of guest history at signup, account verification, password recovery, session lifetime, groomer/staff entity structure, pet record field constraints, service catalog price/duration history, and whether frontend components for these modules are designed now or deferred. Presented to user and stopped per Functional Design Step 4/5 gate.
+**Context**: CONSTRUCTION - Functional Design (auth/customer/catalog) — in progress, awaiting user answers
+
+---
+
+## Functional Design (auth/customer/catalog) — Answers Received, Artifacts Generated
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "1C, 2A, 3A,4A,5A,6A,7A,8A,9A"
+**AI Response**: All 9 answers accepted (8 recommended/first options, Q1=C the broadest-matching option). No ambiguity to analyze — all clean single-letter answers. Recorded into the plan file. Generated domain-entities.md (AuthIdentity, Session, Owner, Pet, Groomer, Service — with two documented assumptions flagged as non-blocking: owner field-update-on-match behavior, and email-over-phone tie-break when both would match different existing Owners), business-rules.md (BR-AUTH-1..6, BR-CUST-1..7, BR-CAT-1..5), business-logic-model.md (6 flows: identity resolution, account registration, login, password recovery, pet management, service catalog management), and frontend-components.md (LoginForm/SignupForm/ForgotPasswordForm/ResetPasswordForm, AccountPetsPage + pet CRUD forms, AdminServicesPage + service CRUD forms — with two open items flagged: no removePet/reactivateService methods exist yet, not blocking since no story requires them in v1).
+**Context**: CONSTRUCTION - Functional Design (auth/customer/catalog) — complete, awaiting user approval to proceed to Functional Design for `availability`
+
+---
