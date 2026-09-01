@@ -87,3 +87,78 @@
 **Context**: INCEPTION - User Stories, Part 2 - Generation (complete, awaiting user approval to proceed to Workflow Planning)
 
 ---
+
+## Change Request - Notifications (FR-10)
+**Timestamp**: 2026-08-31T15:00:53Z
+**Request**: "a small change in requirement, when the guest or returning user or even the shop owner book an appointment the user should get an email and text. There should be a reminder text one day before the actual appointment"
+**Current State**: requirements.md approved; stories.md generated but not yet approved by user.
+**Impact Assessment**: Low. requirements.md is a completed/approved stage but the change is a wording refinement to an existing requirement (FR-10), not a new direction — no redesign needed. stories.md is not yet approved, so directly editable without a formal restart.
+**User Confirmation**: Implicit via direct instruction; no destructive rework involved, so proceeded without a separate confirmation round-trip.
+**Action Taken**: Updated FR-10 in requirements.md to specify: confirmation (email+SMS) sent to the customer regardless of who created the booking (guest, account holder, or shop owner on their behalf), plus an automated SMS reminder 1 day before the appointment, suppressed if cancelled first. Updated acceptance criteria in GC-2, RC-2 (added missing confirmation criterion), and SO-2 (added missing confirmation criterion, clarified it goes to the customer not the owner) in stories.md to reflect the same.
+**Artifacts Affected**: aidlc-docs/inception/requirements/requirements.md (FR-10), aidlc-docs/inception/user-stories/stories.md (GC-2, RC-2, SO-2)
+
+---
+
+## User Stories — Approved; Workflow Planning
+**Timestamp**: 2026-08-31T15:00:53Z
+**User Input**: "move to workflow planning"
+**AI Response**: Treated as approval of stories.md (including the FR-10 notification amendment). Executed Workflow Planning: loaded requirements.md and stories.md, ran change-impact and risk assessment (Low-Medium risk, greenfield), determined Application Design and Units Generation should execute in Inception, and Functional Design/NFR Requirements/NFR Design/Infrastructure Design/Code Generation should execute per unit in Construction, followed by Build and Test. Created execution-plan.md with Mermaid workflow visualization. Presented plan for approval.
+**Context**: INCEPTION - User Stories (approved, complete) -> INCEPTION - Workflow Planning (plan created, awaiting approval)
+
+---
+
+## Workflow Planning — Approved
+**Timestamp**: 2026-08-31T15:00:53Z
+**User Input**: "Approve & Continue — proceed to Application Design"
+**AI Response**: Marked Workflow Planning complete. Proceeding to Application Design per application-design.md.
+**Context**: INCEPTION - Workflow Planning (approved, complete) -> INCEPTION - Application Design (starting)
+
+---
+
+## Application Design — Plan and Questions Issued
+**Timestamp**: 2026-08-31T15:00:53Z
+**User Input**: N/A (awaiting response)
+**AI Response**: Created application-design-plan.md with a proposed 6-component breakdown (AvailabilityService, BookingService, CustomerService, NotificationService, CatalogService, ReportingService) and 5 questions (component breakdown confirmation, Pet as sub-entity vs. own component, Auth boundary, orchestration pattern, guest lookup placement). Presented to user and stopped per Step 7 gate.
+**Context**: INCEPTION - Application Design (in progress, awaiting user answers)
+
+---
+
+## Application Design — Answers Received, Artifacts Generated
+**Timestamp**: 2026-08-31T15:00:53Z
+**User Input**: "1A, 2A, 3A, 4A, 5A"
+**AI Response**: All 5 answers accepted proposed/recommended options as-is (no ambiguity to analyze). Final design: 7 components (AuthService, CustomerService, CatalogService, AvailabilityService, BookingService, NotificationService, ReportingService); Pet as CustomerService sub-entity; dedicated AuthService; BookingService coordinates directly with no separate orchestrator; guest lookup inside BookingService. Generated components.md, component-methods.md, services.md (per-story orchestration flows), component-dependency.md (matrix + Mermaid diagram + text alternative), and consolidated application-design.md. Presented for approval.
+**Context**: INCEPTION - Application Design (complete, awaiting user approval to proceed to Units Generation)
+
+---
+
+## Application Design — Approved
+**Timestamp**: 2026-08-31T15:00:53Z
+**User Input**: "Approve & Continue"
+**AI Response**: Marked Application Design complete. Proceeding to Units Generation per units-generation.md.
+**Context**: INCEPTION - Application Design (approved, complete) -> INCEPTION - Units Generation (starting)
+
+---
+
+## Units Generation — Plan and Questions Issued
+**Timestamp**: 2026-08-31T15:00:53Z
+**User Input**: N/A (awaiting response)
+**AI Response**: Created unit-of-work-plan.md with 3 questions: unit grouping (recommended: single unit, given BookingService's hub-and-spoke dependencies make splitting non-parallelizable and would redundantly repeat NFR/Infrastructure Design), code organization/deployment shape (recommended: single deployable app, per NFR-1), and build order (recommended: dependency-respecting sequential order). Presented to user and stopped per Step 5/6 gate.
+**Context**: INCEPTION - Units Generation, Part 1 - Planning (in progress, awaiting user answers)
+
+---
+
+## Units Generation — Answers Received, Artifacts Generated
+**Timestamp**: 2026-08-31T15:00:53Z
+**User Input**: "1A, 2A, 3A"
+**AI Response**: All 3 answers accepted recommended options (no ambiguity to analyze). Decision: single unit of work ("Pet Grooming Booking Platform") containing all 7 components as internal modules of one deployable app; internal build order = auth/customer/catalog -> availability -> booking -> notification/reporting. Generated unit-of-work.md (definitions + code organization strategy), unit-of-work-dependency.md (N/A inter-unit; intra-unit/module dependency table), and unit-of-work-story-map.md (all 13 stories mapped, coverage verified, no orphans). Presented for approval.
+**Context**: INCEPTION - Units Generation (complete, awaiting user approval to proceed to CONSTRUCTION PHASE)
+
+---
+
+## Units Generation — Approved; INCEPTION Phase Complete
+**Timestamp**: 2026-08-31T15:00:53Z
+**User Input**: "Approve and send the bundle"
+**AI Response**: Marked Units Generation and the entire INCEPTION phase complete. Committed all Inception artifacts locally and preparing an incremental git bundle for the user to pull and push to GitHub. Next stage: CONSTRUCTION PHASE, starting with Functional Design for the auth/customer/catalog modules.
+**Context**: INCEPTION PHASE (complete) -> CONSTRUCTION PHASE (starting)
+
+---

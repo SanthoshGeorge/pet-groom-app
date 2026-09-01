@@ -19,10 +19,12 @@ Organized by persona, ordered as a journey (discover → book → manage) within
 **As a** guest customer, **I want to** book an appointment by providing my contact and pet details **so that** I don't need to create an account.
 
 **Acceptance Criteria**:
-- Given an open time slot, when I select it and enter my name, phone, email, and pet details (name, breed, size, notes), then the appointment is created and I receive a confirmation via email and SMS.
+- Given an open time slot, when I select it and enter my name, phone, email, and pet details (name, breed, size, notes), then the appointment is created and I immediately receive a confirmation via **both email and SMS**.
 - Given I want grooming for more than one of my pets in the same visit, when I add additional pets to the same booking, then all pets are included in a single appointment.
 - Given I omit a required field (e.g., phone), when I try to submit, then I see a clear error and the booking is not created.
+- Given my appointment is upcoming, when it is 1 day before the scheduled time, then I receive an automated **SMS reminder**.
 - **Edge case**: Given another customer books the same slot a moment before I submit, when I try to confirm, then I see a message that the slot is no longer available and I'm shown updated availability — I am not double-booked into the same slot as someone else.
+- **Edge case**: Given I cancel my appointment before the day-before mark, when the reminder would have fired, then no reminder is sent.
 
 ### GC-3: Cancel or reschedule a guest appointment
 **As a** guest customer, **I want to** cancel or reschedule my appointment myself **so that** I don't have to call the shop.
@@ -53,6 +55,7 @@ Organized by persona, ordered as a journey (discover → book → manage) within
 - Given I'm logged in, when I start a booking, then my saved pet(s) and contact details are pre-filled.
 - Given I want to add a new pet not yet on file, when I add it during booking, then it's saved to my account for future use.
 - Given I want grooming for more than one saved pet in the same visit, when I select multiple pets, then all are included in a single appointment (same as GC-2).
+- Given my booking is created, when it completes, then I immediately receive a confirmation via **both email and SMS**, and later an automated **SMS reminder 1 day before** the appointment (same as GC-2).
 - **Edge case**: Given another customer books the same slot a moment before I submit, when I try to confirm, then I see the same "slot no longer available" behavior as GC-2.
 
 ### RC-3: Cancel or reschedule an appointment
@@ -81,6 +84,7 @@ Organized by persona, ordered as a journey (discover → book → manage) within
 - Given a customer's info (new or existing), when I create a booking on their behalf, then it's created the same way a self-service booking would be, including support for multiple pets in one visit.
 - Given the customer is new, when I enter their and their pet's details during booking, then a new owner/pet record is created for future use.
 - Given the customer already exists, when I search for them, then I can find and reuse their saved info rather than re-entering it.
+- Given the booking is created, when it completes, then **the customer** (not me, the owner) receives the confirmation via both email and SMS, and later the SMS reminder 1 day before — identical notification behavior to if they'd booked it themselves.
 
 ### SO-3: Book outside normal availability
 **As the** shop owner, **I want to** book a walk-in or special-case appointment even outside normal computed availability **so that** I'm not blocked by the same constraints customers face.

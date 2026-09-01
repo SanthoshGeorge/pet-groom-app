@@ -38,7 +38,7 @@ Customers can cancel or reschedule their own appointment online at any time befo
 No online payment is collected in v1. Payment is handled in person at the shop after service. (Design should not preclude adding online deposits/payment later.)
 
 ### FR-10: Notifications
-The system sends appointment confirmations and reminders via **both email and SMS**.
+Immediately upon booking creation, the customer receives a confirmation via **both email and SMS** — this applies no matter who created the booking (the customer themselves as guest or account holder, or the shop owner on their behalf; in the latter case, the notification goes to the customer, not the owner). Additionally, the system sends an automated **SMS reminder 1 day before** the scheduled appointment. If an appointment is cancelled before the reminder would fire, no reminder is sent for it.
 
 ### FR-11: Pet and Owner Data Storage
 The system stores: owner (name, phone, email, address optional, notes) and, per owner, one or more pets (name, breed/size, age, temperament notes, allergy/medical notes). This data is reusable across future bookings for account holders (FR-3) and is always visible/editable by the shop owner regardless of whether the customer has an account.
