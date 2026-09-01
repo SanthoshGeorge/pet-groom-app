@@ -28,9 +28,9 @@ B) **Two units** — "Core Platform" (AuthService, CustomerService, CatalogServi
 
 C) **One unit per component** — 7 units, full granularity
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ## Question 2 — Code organization / deployment model
 This is a greenfield project, so this decision shapes the directory structure Code Generation will follow later. (Note: this is about *shape* — single deployable vs. multiple — not the specific language/framework, which is still decided in NFR Requirements.)
 
@@ -38,9 +38,9 @@ A) **Single deployable application** with components organized as internal modul
 
 B) **Multiple independently deployable services** — more operational overhead (separate deployments, inter-service calls instead of function calls), not recommended given NFR-1, but an option if you have a reason to want it
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ## Question 3 — Build order
 Given BookingService depends on almost everything else, should Construction proceed in a specific dependency-respecting order, or does order not matter for this project?
 
@@ -48,9 +48,9 @@ A) Sequential, dependency-respecting order — foundational components first (Au
 
 B) Order doesn't matter — build in whatever order is convenient
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ---
 
 **Note**: Whatever grouping is chosen, all 13 stories from `stories.md` will be explicitly mapped to a unit in `unit-of-work-story-map.md` — none can be left unassigned.

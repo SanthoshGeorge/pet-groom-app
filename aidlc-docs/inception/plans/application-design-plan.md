@@ -35,13 +35,13 @@ Does the 6-component breakdown above look right, or should it be adjusted?
 
 A) Use it as proposed
 
-B) Merge some further (fewer, more coarse-grained components — describe which after [Answer]: tag below)
+B) Merge some further (fewer, more coarse-grained components — describe which after \[Answer\]: tag below)
 
-C) Split some further (more, more fine-grained components — describe which after [Answer]: tag below)
+C) Split some further (more, more fine-grained components — describe which after \[Answer\]: tag below)
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ## Question 2 — Pet as sub-entity vs. own component
 Should Pet records be owned by CustomerService as a sub-entity of Owner (no independent lifecycle — a pet always belongs to an owner), or should Pet be its own component?
 
@@ -49,9 +49,9 @@ A) Sub-entity of CustomerService (recommended — pets have no meaning without a
 
 B) Separate PetService component
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ## Question 3 — Authentication boundary
 Both shop-owner login (for the admin view) and optional customer account login (RC-1) need authentication. Should this be its own component, or folded into CustomerService?
 
@@ -59,9 +59,9 @@ A) Dedicated AuthService component, used by both shop owner and customer account
 
 B) Folded into CustomerService (no separate component)
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ## Question 4 — Orchestration pattern
 When a booking is created, several components need to be involved (check availability, create the appointment, trigger notifications). Should there be a dedicated orchestrating component, or should BookingService itself directly call the others it needs?
 
@@ -69,9 +69,9 @@ A) BookingService directly coordinates AvailabilityService, CustomerService, and
 
 B) A separate BookingOrchestrator component coordinates the others, keeping BookingService itself narrower
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ## Question 5 — Guest booking lookup (for cancellation)
 GC-3 requires a guest to look up their appointment (e.g., via a booking reference + contact info) to cancel/reschedule without an account. Should this lookup live inside BookingService, or be its own small component?
 
@@ -79,9 +79,9 @@ A) Part of BookingService (recommended — it's just another operation on the sa
 
 B) Separate BookingLookupService component
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ---
 
 **Note**: Deployment architecture (single app vs. separate services, hosting choice, database choice) is intentionally out of scope here — that's decided in NFR Requirements / Infrastructure Design, once we know what these components actually need.

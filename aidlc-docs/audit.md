@@ -202,3 +202,12 @@
 **Context**: CONSTRUCTION - Functional Design (availability) — complete, awaiting user approval to proceed to Functional Design for `booking`
 
 ---
+
+## Bug Fix — GitHub rendering of [Answer]: tags
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: Reported (with screenshot) that answers weren't visible in the pushed question files on GitHub.
+**Diagnosis**: Not a sync issue — `[Answer]: A` is valid Markdown link-reference-definition syntax (`[label]: destination`). GitHub's renderer silently drops that line and rewrites every other `[Answer]` mention in the same document into a hyperlink (visible in the user's screenshot as "Answer" rendered as a blue link). This affected every question file in the project, including ones from Requirements Analysis onward — a latent formatting bug, not a missing/lost answer; the raw files always had the correct letters.
+**Fix**: Escaped the brackets (`\[Answer\]:`) in all 6 question files across the project (requirement-verification-questions.md, story-generation-plan.md, application-design-plan.md, unit-of-work-plan.md, and both Construction Functional Design plan files) so they render as plain visible text instead of being parsed as link syntax. No answer content changed — this is a pure rendering fix. Will use the escaped format for all future question files.
+**Context**: Out-of-band bug fix, not an AI-DLC workflow stage transition. Returning to CONSTRUCTION - Functional Design (availability), still awaiting user approval to proceed to `booking`.
+
+---

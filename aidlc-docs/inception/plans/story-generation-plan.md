@@ -24,7 +24,7 @@ Given two clearly distinct personas (Customer, Shop Owner) each with their own e
 
 ## Questions
 
-Please fill in each `[Answer]:` tag.
+Please fill in each `\[Answer\]:` tag.
 
 ## Question 1 — Story breakdown approach
 Which approach should organize the stories?
@@ -35,9 +35,9 @@ B) Pure feature-based (e.g., "Availability Display", "Booking Creation", "Cancel
 
 C) Epic-based (two epics — "Customer Booking" and "Shop Management" — each broken into sub-stories)
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ## Question 2 — Personas: guest vs. account holder
 Requirements allow guest booking (no account) and an optional account for returning customers. Should these be modeled as two separate personas, or one "Customer" persona with two paths through the same stories?
 
@@ -45,9 +45,9 @@ A) One "Customer" persona, with guest-vs-account-holder handled as variations wi
 
 B) Two personas — "Guest Customer" and "Returning Customer" — with some duplicated/overlapping stories
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: B
+\[Answer\]: B
 ## Question 3 — Story granularity
 How granular should individual stories be?
 
@@ -55,9 +55,9 @@ A) Coarse — one story per major capability (e.g., "Book an appointment" as one
 
 B) Fine — broken into smaller steps (e.g., "Select service", "Select time slot", "Enter pet/owner details", "Confirm booking" as separate stories)
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ## Question 4 — Acceptance criteria format
 What format should acceptance criteria use?
 
@@ -65,9 +65,9 @@ A) Given/When/Then (Gherkin-style) — precise, good for later automated testing
 
 B) Simple bullet checklist per story — faster to read, less formal
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ## Question 5 — Edge cases and error scenarios
 How much attention should stories give to edge cases (e.g., double-booking attempts, canceling an appointment that already happened, booking for a pet that doesn't exist yet)?
 
@@ -75,9 +75,9 @@ A) Cover the main happy-path scenarios only for now — edge cases handled later
 
 B) Explicitly call out key edge cases as part of the acceptance criteria for relevant stories now
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: B
+\[Answer\]: B
 ## Question 6 — Shop owner override behavior
 FR-7 says the owner can override normal availability (e.g., book a walk-in outside standard hours). Should this be its own distinct story, or a variation noted within the general "owner books on behalf of a customer" story?
 
@@ -85,9 +85,9 @@ A) Its own distinct story ("Owner books outside normal availability")
 
 B) A noted variation within the general on-behalf-of booking story
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ---
 
 **Note**: This plan intentionally stays at the story/requirements level — no technical implementation details, prioritization, or sprint planning are included here, per methodology rules for this stage.

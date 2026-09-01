@@ -15,7 +15,7 @@
 
 ## Questions
 
-Please answer each question by filling in the letter choice after the `[Answer]:` tag. If none of the options match, choose the last option ("Other") and describe your answer.
+Please answer each question by filling in the letter choice after the `\[Answer\]:` tag. If none of the options match, choose the last option ("Other") and describe your answer.
 
 ### Question 1 — Multi-pet appointment duration (FR-4)
 FR-4 says a visit can include multiple pets "groomed back-to-back or in parallel" — that's two different answers with very different slot-sizing math, for a shop with **one groomer** (FR-2). If Jamie books Biscuit (Full Groom, 90 min) and a second pet (Nail Trim, 15 min) in the same visit, how long is the slot that gets claimed?
@@ -26,9 +26,9 @@ B) **Parallel (same slot)** — the slot claimed is just the **longest** individ
 
 C) **Ask the shop owner to weigh in later, default to sequential for now** — build to Option A but flag it as something to confirm once the real groomer explains how he actually handles multi-pet visits
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ### Question 2 — Buffer time between appointments (FR-5)
 FR-5 requires buffer time between appointments for cleanup. How is that buffer determined?
 
@@ -38,9 +38,9 @@ B) **Per-service buffer** — each `Service` gets its own buffer duration (e.g. 
 
 C) **Owner-configurable single setting** — one buffer value the shop owner can change from admin settings (same as Option A initially, but explicitly editable rather than hardcoded)
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ### Question 3 — Slot start-time granularity
 When `getAvailableSlots` computes open slots, what determines valid *start* times — e.g. can a slot start at 10:07, or only at fixed points like 10:00/10:15/10:30?
 
@@ -48,9 +48,9 @@ A) **Fixed grid** — slots can only start on a regular interval (e.g. every 15 
 
 B) **Back-to-back packing** — the next available start time is exactly when the previous appointment (plus buffer) ends, no fixed grid — maximizes usable time but produces irregular-looking start times
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ### Question 4 — Advance booking window
 GC-1 says customers see slots "for the next several days." How far ahead should availability actually be computed/shown?
 
@@ -60,9 +60,9 @@ B) **30 days**
 
 C) **7 days**
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ### Question 5 — Slot-claim race behavior (GC-2 edge case)
 GC-2's edge case already establishes that a losing customer sees "slot no longer available" and refreshed availability. Beyond that baseline: should the system also **suggest the nearest alternative open slot** automatically when a claim fails, or is showing refreshed availability (and letting the customer pick again) enough for v1?
 
@@ -70,9 +70,9 @@ A) Just refreshed availability — no auto-suggestion (matches the acceptance cr
 
 B) Auto-suggest the nearest available slot as a convenience on top of the refreshed list
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ### Question 6 — Working hours shape (SO-5)
 Are the shop's weekly working hours a single start/end time per day (e.g. Tue 9am–5pm), or can a day have a split schedule (e.g. 9am–12pm, then 2pm–6pm with a lunch closure)?
 
@@ -80,9 +80,9 @@ A) **Single continuous range per day of week** — one open/close time per day, 
 
 B) **Multiple ranges per day allowed** — supports split schedules like a lunch break
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ### Question 7 — Time-off granularity (SO-5)
 `addTimeOff(dateRange)` — can time off be a partial day (e.g. "off this Tuesday afternoon"), or only whole calendar days?
 
@@ -90,9 +90,9 @@ A) **Whole days only** — a time-off entry blocks one or more full calendar day
 
 B) **Partial days supported** — a time-off entry can be a specific time range within a day (e.g. 1pm–5pm on a given date), in addition to whole days
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
 ### Question 8 — What counts as a "conflict" for override warnings (SO-3)
 SO-3 says an override that "would conflict with an already-booked appointment" shows a warning but can still be confirmed. To be precise: does "conflict" mean **only** double-booking against another real appointment (two appointments overlapping in time), or does it also cover booking outside working hours / inside a buffer window (which SO-3's first acceptance criterion already says is silently allowed, no warning — just flagged as override)?
 
@@ -100,6 +100,6 @@ A) **Conflict = only appointment-overlap** — warn only when the override would
 
 B) **Conflict = anything abnormal** — warn for outside-hours, inside-buffer, AND overlapping-appointment cases alike, letting the owner confirm through any of them
 
-X) Other (please describe after [Answer]: tag below)
+X) Other (please describe after \[Answer\]: tag below)
 
-[Answer]: A
+\[Answer\]: A
