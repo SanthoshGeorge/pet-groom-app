@@ -41,7 +41,7 @@
 - **Internal build order**: auth/customer/catalog (foundational) -> availability -> booking (core) -> notification/reporting (leaf, alongside/after booking)
 
 ### 🟢 CONSTRUCTION PHASE
-- [ ] Functional Design (per unit) — EXECUTE (auth/customer/catalog module group: artifacts generated, awaiting approval; availability/booking/notification/reporting groups not yet started)
+- [ ] Functional Design (per unit) — EXECUTE (auth/customer/catalog: ✅ approved and complete; availability: artifacts generated, awaiting approval; booking/notification/reporting groups not yet started)
 - [ ] NFR Requirements (per unit) — EXECUTE (planned)
 - [ ] NFR Design (per unit) — EXECUTE (planned)
 - [ ] Infrastructure Design (per unit) — EXECUTE (planned)
@@ -53,6 +53,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Functional Design — auth/customer/catalog module group (first in build order)
-- **Next Stage**: (after this group's approval) Functional Design for `availability`
-- **Status**: Artifacts generated at `aidlc-docs/construction/pet-grooming-booking-platform/functional-design/` (domain-entities.md, business-rules.md, business-logic-model.md, frontend-components.md), awaiting user approval
+- **Current Stage**: Functional Design — `availability` module group (second in build order)
+- **Next Stage**: (after this group's approval) Functional Design for `booking`
+- **Status**: Artifacts generated at `aidlc-docs/construction/pet-grooming-booking-platform/functional-design/` (availability-domain-entities.md, availability-business-rules.md, availability-business-logic-model.md), awaiting user approval

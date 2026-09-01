@@ -178,3 +178,27 @@
 **Context**: CONSTRUCTION - Functional Design (auth/customer/catalog) — complete, awaiting user approval to proceed to Functional Design for `availability`
 
 ---
+
+## Functional Design (auth/customer/catalog) — Approved
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "approve"
+**AI Response**: Marked Functional Design for auth/customer/catalog complete and approved. Proceeding to Functional Design for `availability` (second group in the internal build order).
+**Context**: CONSTRUCTION - Functional Design (auth/customer/catalog: approved, complete) -> CONSTRUCTION - Functional Design (availability: starting)
+
+---
+
+## Functional Design (availability) — Plan and Questions Issued
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: N/A (awaiting response)
+**AI Response**: Created pet-grooming-booking-platform-availability-functional-design-plan.md with 8 questions: multi-pet slot duration (resolving FR-4's "back-to-back or in parallel" ambiguity), buffer time determination, slot start-time granularity, advance booking window, slot-claim race UX, working-hours shape, time-off granularity, and what counts as a "conflict" for SO-3 override warnings. Presented to user and stopped per Functional Design Step 4/5 gate.
+**Context**: CONSTRUCTION - Functional Design (availability) — in progress, awaiting user answers
+
+---
+
+## Functional Design (availability) — Answers Received, Artifacts Generated
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "1A,2A, for the rest pick the most simple recommended approach" — resolved to 1A, 2A, 3A, 4A, 5A, 6A, 7A, 8A (Option A was the simplest/first-listed option in every remaining question)
+**AI Response**: All 8 answers accepted, no ambiguity to analyze. Recorded into the plan file. Key resolution: FR-4's "back-to-back or in parallel" ambiguity settled as sequential (sum of pet durations), consistent with the one-groomer reality in FR-2. Generated availability-domain-entities.md (WorkingHoursRule, TimeOff, computed Slot, conceptual SlotClaim, configuration constants BUFFER_MINUTES=15/SLOT_GRID_MINUTES=15/ADVANCE_BOOKING_DAYS=14), availability-business-rules.md (BR-AVAIL-1..11), and availability-business-logic-model.md (6 flows: compute slots, claim, release, force-claim/override, set working hours, add time off). No new frontend-components.md this pass (booking-flow screens already mocked up; admin working-hours screens deferred to the booking pass).
+**Context**: CONSTRUCTION - Functional Design (availability) — complete, awaiting user approval to proceed to Functional Design for `booking`
+
+---
