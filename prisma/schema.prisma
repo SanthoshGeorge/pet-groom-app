@@ -13,7 +13,9 @@
 // (that's Step 26, after all business logic is generated) — this file is schema-only.
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["queryCompiler", "driverAdapters"]
+  engineType      = "client"
 }
 
 datasource db {

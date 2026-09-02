@@ -31,20 +31,20 @@ This plan is the single source of truth for Code Generation. Every step below is
 - [x] **Step 9**: `src/modules/reporting/` — implement BR-REPORT-1..4. Stories: SO-6.
 
 ### Phase C — Business Logic Testing
-- [ ] **Step 10**: Vitest unit tests for all 7 modules — one test file per module, covering every numbered business rule (BR-AUTH-*, BR-CUST-*, BR-CAT-*, BR-AVAIL-*, BR-BOOK-*, BR-NOTIF-*, BR-REPORT-*) as its own test case, plus the flows from each `*-business-logic-model.md`. Concurrency-sensitive rules (BR-AVAIL-5) get an explicit concurrent-request test.
-- [ ] **Step 11**: Business Logic Summary — a short `aidlc-docs/construction/pet-grooming-booking-platform/code/business-logic-summary.md` documenting what was generated, deviations (if any arose during implementation), and test coverage.
+- [x] **Step 10**: Vitest unit tests for all 7 modules — one test file per module, covering every numbered business rule (BR-AUTH-*, BR-CUST-*, BR-CAT-*, BR-AVAIL-*, BR-BOOK-*, BR-NOTIF-*, BR-REPORT-*) as its own test case, plus the flows from each `*-business-logic-model.md`. Concurrency-sensitive rules (BR-AVAIL-5) get an explicit concurrent-request test.
+- [x] **Step 11**: Business Logic Summary — a short `aidlc-docs/construction/pet-grooming-booking-platform/code/business-logic-summary.md` documenting what was generated, deviations (if any arose during implementation), and test coverage.
 
 ### Phase D — API Layer Generation (Next.js Route Handlers, `src/app/api/`)
-- [ ] **Step 12**: Public API routes — availability (`GET /api/availability`), booking (`POST /api/bookings`, `GET/POST /api/bookings/lookup`, `PATCH /api/bookings/:id` for cancel/reschedule), catalog (`GET /api/services`), auth (`POST /api/auth/login|logout|register|forgot-password|reset-password`), customer (`GET/PATCH /api/account/pets`).
-- [ ] **Step 13**: Admin API routes (all gated by `auth.validateSession`, `role=owner`, per every Functional Design pass's stated rule) — calendar/listing (`GET /api/admin/appointments`), booking on behalf of a customer (`POST /api/admin/bookings`, override variant), no-show marking (`POST /api/admin/appointments/:id/no-show`), catalog management (`POST/PATCH /api/admin/services`), working hours/time-off (`POST /api/admin/hours`, `POST /api/admin/time-off`), reports (`GET /api/admin/reports`).
-- [ ] **Step 14**: The cron-triggered reminder route (`POST /api/cron/reminders`), protected by the `CRON_SECRET` shared-secret header per Infrastructure Design.
+- [x] **Step 12**: Public API routes — availability (`GET /api/availability`), booking (`POST /api/bookings`, `GET/POST /api/bookings/lookup`, `PATCH /api/bookings/:id` for cancel/reschedule), catalog (`GET /api/services`), auth (`POST /api/auth/login|logout|register|forgot-password|reset-password`), customer (`GET/PATCH /api/account/pets`).
+- [x] **Step 13**: Admin API routes (all gated by `auth.validateSession`, `role=owner`, per every Functional Design pass's stated rule) — calendar/listing (`GET /api/admin/appointments`), booking on behalf of a customer (`POST /api/admin/bookings`, override variant), no-show marking (`POST /api/admin/appointments/:id/no-show`), catalog management (`POST/PATCH /api/admin/services`), working hours/time-off (`POST /api/admin/hours`, `POST /api/admin/time-off`), reports (`GET /api/admin/reports`).
+- [x] **Step 14**: The cron-triggered reminder route (`POST /api/cron/reminders`), protected by the `CRON_SECRET` shared-secret header per Infrastructure Design.
 
 ### Phase E — API Layer Testing
-- [ ] **Step 15**: Integration tests (Vitest, against a test database) for every route in Steps 12-14 — request/response shape, auth gating on admin routes, and the guest-lookup security behavior (BR-BOOK-5's generic-error-either-way pattern) specifically verified.
-- [ ] **Step 16**: API Layer Summary — `aidlc-docs/construction/pet-grooming-booking-platform/code/api-layer-summary.md`.
+- [x] **Step 15**: Integration tests (Vitest, against a test database) for every route in Steps 12-14 — request/response shape, auth gating on admin routes, and the guest-lookup security behavior (BR-BOOK-5's generic-error-either-way pattern) specifically verified.
+- [x] **Step 16**: API Layer Summary — `aidlc-docs/construction/pet-grooming-booking-platform/code/api-layer-summary.md`.
 
 ### Phase F — Repository Layer Generation (`src/modules/*/repository.ts`, Prisma-backed)
-- [ ] **Step 17**: Data-access functions per module wrapping Prisma calls — including the specific patterns NFR Design specified: the insert-and-catch-constraint-violation pattern for `claimSlot`/`forceClaimSlot` (not a `SELECT...FOR UPDATE`), and the price/duration snapshot write in `booking`'s repository layer at appointment-creation time.
+- [x] **Step 17**: Data-access functions per module wrapping Prisma calls — including the specific patterns NFR Design specified: the insert-and-catch-constraint-violation pattern for `claimSlot`/`forceClaimSlot` (not a `SELECT...FOR UPDATE`), and the price/duration snapshot write in `booking`'s repository layer at appointment-creation time.
 
 ### Phase G — Repository Layer Testing
 - [ ] **Step 18**: Integration tests against a real (test) Postgres instance — particularly a concurrent-request test proving BR-AVAIL-5's atomicity guarantee actually holds against the real database, not just a mocked one.

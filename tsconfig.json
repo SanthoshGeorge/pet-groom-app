@@ -30,5 +30,14 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "src/modules/auth/prisma/**/*",
+    "src/modules/customer/prisma/**/*",
+    "src/modules/catalog/prisma/**/*",
+    "src/modules/availability/prisma/**/*",
+    "src/modules/booking/prisma/**/*",
+    "src/modules/notification/prisma/**/*",
+    "src/modules/reporting/prisma/**/*"
+  ]
 }
