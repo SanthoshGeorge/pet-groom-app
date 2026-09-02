@@ -1,0 +1,29 @@
+.strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.tile {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+.label {
+  font-size: 13px;
+  color: var(--admin-text-muted);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.value {
+  font-size: 26px;
+  font-family: var(--admin-font-serif);
+  font-weight: 700;
+  margin-top: 4px;
+  color: var(--admin-text);
+}

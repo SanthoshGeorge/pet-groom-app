@@ -47,14 +47,14 @@ This plan is the single source of truth for Code Generation. Every step below is
 - [x] **Step 17**: Data-access functions per module wrapping Prisma calls — including the specific patterns NFR Design specified: the insert-and-catch-constraint-violation pattern for `claimSlot`/`forceClaimSlot` (not a `SELECT...FOR UPDATE`), and the price/duration snapshot write in `booking`'s repository layer at appointment-creation time.
 
 ### Phase G — Repository Layer Testing
-- [ ] **Step 18**: Integration tests against a real (test) Postgres instance — particularly a concurrent-request test proving BR-AVAIL-5's atomicity guarantee actually holds against the real database, not just a mocked one.
-- [ ] **Step 19**: Repository Layer Summary — `aidlc-docs/construction/pet-grooming-booking-platform/code/repository-layer-summary.md`.
+- [x] **Step 18**: Integration tests against a real (test) Postgres instance — particularly a concurrent-request test proving BR-AVAIL-5's atomicity guarantee actually holds against the real database, not just a mocked one.
+- [x] **Step 19**: Repository Layer Summary — `aidlc-docs/construction/pet-grooming-booking-platform/code/repository-layer-summary.md`.
 
 ### Phase H — Frontend Components Generation
-- [ ] **Step 20**: Public site pages (`src/app/(public)/`) — home/landing, service menu, gallery, about/contact (FR-12), and the booking flow screens, built to match the already-approved mockup canvas (`Main.dc.html`, `Public-Booking.dc.html`, `Public-Details.dc.html`, `Public-Confirmation.dc.html`) pixel-and-copy-faithfully where the mockup covers a screen.
-- [ ] **Step 21**: Auth/account pages (`src/app/(public)/login`, `/signup`, `/account/pets`) — built from `frontend-components.md`'s component/prop/state specs (no mockup existed for these; this is their first visual implementation).
-- [ ] **Step 22**: Admin site pages (`src/app/(admin)/`) — calendar (`Admin-Calendar.dc.html`), new booking (`Admin-NewBooking.dc.html`), plus services management and reports pages from `frontend-components.md`'s specs (no mockup existed for these either).
-- [ ] **Step 23**: Every interactive element gets a stable `data-testid` per the Critical Rules' automation-friendly convention (`{component}-{element-role}` naming).
+- [x] **Step 20**: Public site pages (`src/app/(public)/`) — home/landing, service menu, gallery, about/contact (FR-12), and the booking flow screens, built to match the already-approved mockup canvas (`Main.dc.html`, `Public-Booking.dc.html`, `Public-Details.dc.html`, `Public-Confirmation.dc.html`) pixel-and-copy-faithfully where the mockup covers a screen.
+- [x] **Step 21**: Auth/account pages (`src/app/(public)/login`, `/signup`, `/account/pets`) — built from `frontend-components.md`'s component/prop/state specs (no mockup existed for these; this is their first visual implementation).
+- [x] **Step 22**: Admin site pages (`src/app/(admin)/`) — calendar (`Admin-Calendar.dc.html`), new booking (`Admin-NewBooking.dc.html`), plus services management and reports pages from `frontend-components.md`'s specs (no mockup existed for these either).
+- [x] **Step 23**: Every interactive element gets a stable `data-testid` per the Critical Rules' automation-friendly convention (`{component}-{element-role}` naming).
 
 ### Phase I — Frontend Components Testing
 - [ ] **Step 24**: Vitest + React Testing Library component tests — form validation (e.g. `ServiceForm`'s required-field rules from BR-CAT-5), conditional rendering (e.g. the `isOverride`/`hasConflict`/`notificationFailed` badges), and state transitions.

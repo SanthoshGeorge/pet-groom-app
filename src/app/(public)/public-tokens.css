@@ -1,0 +1,28 @@
+/*
+ * Design tokens for the public site (Step 20), ported verbatim from the approved mockup
+ * canvas's shared `:root` block (Main.dc.html / Public-Booking.dc.html /
+ * Public-Details.dc.html / Public-Confirmation.dc.html all declare the same values).
+ *
+ * These are plain CSS custom properties, additive to the existing tokens in
+ * `src/app/globals.css` (`--background`/`--foreground`) — nothing here replaces or
+ * overrides those, so the (admin) route group (Step 22, not yet built) is unaffected.
+ * Every component under `src/app/(public)/` consumes these via its own CSS Module; class
+ * names live in those modules (locally scoped, no global collision risk), never here.
+ */
+:root {
+  --public-bg: oklch(98% 0.012 70);
+  --public-surface: oklch(100% 0 0);
+  --public-text: oklch(27% 0.02 60);
+  --public-text-muted: oklch(50% 0.02 60);
+  --public-accent: oklch(62% 0.14 45);
+  --public-accent-hover: oklch(54% 0.14 45);
+  --public-accent-soft: oklch(94% 0.035 50);
+  --public-border: oklch(90% 0.012 60);
+  --public-done: oklch(58% 0.1 145);
+  --public-done-soft: oklch(94% 0.03 145);
+  --public-danger: oklch(55% 0.18 25);
+  --public-danger-soft: oklch(94% 0.04 25);
+  --public-muted-bg: oklch(96% 0.006 60);
+  --public-font-sans: "Karla", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --public-font-serif: "Lora", Georgia, "Times New Roman", serif;
+}

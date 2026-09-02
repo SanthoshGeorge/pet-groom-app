@@ -1,0 +1,30 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
+  font-family: var(--public-font-sans);
+  color: var(--public-text);
+  background: var(--public-bg);
+}
+
+.shell :global(h1),
+.shell :global(h2),
+.shell :global(h3) {
+  font-family: var(--public-font-serif);
+  margin: 0;
+  font-weight: 600;
+}
+
+.shell :global(a) {
+  color: var(--public-accent);
+  text-decoration: none;
+}
+
+.shell :global(a:hover) {
+  color: var(--public-accent-hover);
+}
+
+.shell :global(button) {
+  font-family: inherit;
+}

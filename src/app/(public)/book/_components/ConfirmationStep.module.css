@@ -1,0 +1,134 @@
+.wrap {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 64px 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--public-surface);
+  border: 1px solid var(--public-border);
+  border-radius: 16px;
+  padding: 44px;
+  text-align: center;
+}
+
+.checkCircle {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: var(--public-done-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: var(--public-done);
+}
+
+.title {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: var(--public-text-muted);
+  font-size: 15px;
+  margin: 0 0 28px;
+}
+
+.summary {
+  background: var(--public-muted-bg);
+  border-radius: 12px;
+  padding: 22px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  gap: 12px;
+}
+
+.summaryLabel {
+  color: var(--public-text-muted);
+  flex: none;
+}
+
+.summaryValue {
+  text-align: right;
+}
+
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+  background: var(--public-accent-soft);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 28px;
+}
+
+.noticeIcon {
+  color: var(--public-accent-hover);
+  flex: none;
+  margin-top: 1px;
+}
+
+.noticeText {
+  font-size: 13px;
+  color: var(--public-accent-hover);
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  background: var(--public-accent);
+  color: #fff;
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.btnPrimary:hover {
+  background: var(--public-accent-hover);
+  color: #fff;
+}
+
+.btnSecondary {
+  background: transparent;
+  color: var(--public-text);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  border: 1.5px solid var(--public-border);
+  cursor: pointer;
+}
+
+.btnSecondary:hover {
+  background: var(--public-muted-bg);
+}
+
+.footnote {
+  font-size: 12.5px;
+  color: var(--public-text-muted);
+  margin-top: 18px;
+}

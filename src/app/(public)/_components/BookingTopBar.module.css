@@ -1,0 +1,32 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 56px;
+  border-bottom: 1px solid var(--public-border);
+  background: var(--public-surface);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.homeLink {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--public-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.homeLink:hover {
+  color: var(--public-accent);
+}
+
+.guestNote {
+  font-size: 14px;
+  color: var(--public-text-muted);
+}
+
+.loginLink {
+  font-weight: 600;
+}

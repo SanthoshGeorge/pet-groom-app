@@ -1,0 +1,140 @@
+.dateStripRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.pageButton {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1.5px solid var(--public-border);
+  background: var(--public-surface);
+  color: var(--public-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pageButton:hover:not(:disabled) {
+  border-color: var(--public-accent);
+  color: var(--public-accent);
+}
+
+.pageButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.dateStrip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  flex: 1;
+}
+
+.dateCell {
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 8px;
+  border: 1.5px solid var(--public-border);
+  font-size: 13px;
+  color: var(--public-text-muted);
+  background: var(--public-surface);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.dateCell:hover {
+  border-color: var(--public-accent);
+}
+
+.dateCellSelected {
+  background: var(--public-accent-soft);
+  border-color: var(--public-accent);
+  color: var(--public-accent-hover);
+  font-weight: 700;
+}
+
+.dateNumber {
+  color: var(--public-text);
+  font-size: 15px;
+  display: block;
+  font-weight: 700;
+}
+
+.dateCellSelected .dateNumber {
+  color: var(--public-accent-hover);
+}
+
+.dateEmptyDot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--public-border);
+  margin-top: 4px;
+}
+
+.sectionLabel {
+  font-size: 13px;
+  color: var(--public-text-muted);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.slotGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 560px) {
+  .slotGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.slot {
+  padding: 11px 0;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1.5px solid var(--public-border);
+  background: var(--public-surface);
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--public-text);
+}
+
+.slot:hover {
+  border-color: var(--public-accent);
+}
+
+.slotSelected {
+  background: var(--public-accent);
+  border-color: var(--public-accent);
+  color: #fff;
+}
+
+.helperText {
+  font-size: 13px;
+  color: var(--public-text-muted);
+  margin: 16px 0 0;
+}
+
+.status {
+  color: var(--public-text-muted);
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.error {
+  color: var(--public-danger);
+  font-size: 14px;
+  padding: 8px 0;
+}

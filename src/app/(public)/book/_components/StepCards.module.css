@@ -1,0 +1,151 @@
+/* The booking wizard's three step-card visual states, ported from Public-Booking.dc.html /
+   Public-Details.dc.html's own step-1/2/3 cards (done / active / locked). */
+
+.badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex: none;
+}
+
+.badgeSmall {
+  width: 22px;
+  height: 22px;
+}
+
+.badgeDone {
+  background: var(--public-done-soft);
+  color: var(--public-done);
+}
+
+.badgeActive {
+  background: var(--public-accent);
+  color: #fff;
+}
+
+.badgeLocked {
+  background: oklch(90% 0.01 60);
+  color: var(--public-text-muted);
+}
+
+/* Done, full-size (step-in-progress summary row) */
+.doneRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--public-surface);
+  border: 1px solid var(--public-border);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin-bottom: 14px;
+}
+
+.doneBody {
+  flex: 1;
+}
+
+.doneLabel {
+  font-size: 13px;
+  color: var(--public-text-muted);
+  font-weight: 600;
+}
+
+.doneValue {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.changeLink {
+  font-weight: 600;
+  font-size: 14px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--public-accent);
+  cursor: pointer;
+}
+
+/* Done, compact (collapsed chip once step 3 is reached) */
+.doneChip {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--public-surface);
+  border: 1px solid var(--public-border);
+  border-radius: 12px;
+  padding: 14px 18px;
+}
+
+.doneChipValue {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.chipRow {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+/* Locked */
+.lockedRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--public-muted-bg);
+  border: 1px solid var(--public-border);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin-bottom: 28px;
+  opacity: 0.6;
+}
+
+.lockedBody {
+  flex: 1;
+}
+
+.lockedLabel {
+  font-size: 13px;
+  color: var(--public-text-muted);
+  font-weight: 600;
+}
+
+.lockedValue {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--public-text-muted);
+}
+
+/* Active */
+.activeCard {
+  background: var(--public-surface);
+  border: 1.5px solid var(--public-accent);
+  border-radius: 12px;
+  padding: 26px;
+  margin-bottom: 14px;
+}
+
+.activeHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.activeLabel {
+  font-size: 13px;
+  color: var(--public-text-muted);
+  font-weight: 600;
+}
+
+.activeTitle {
+  font-weight: 700;
+  font-size: 16px;
+}

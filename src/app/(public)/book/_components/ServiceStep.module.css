@@ -1,0 +1,67 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  background: var(--public-surface);
+  border: 1.5px solid var(--public-border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.option:hover {
+  border-color: var(--public-accent);
+}
+
+.optionSelected {
+  background: var(--public-accent-soft);
+  border-color: var(--public-accent);
+}
+
+.icon {
+  color: var(--public-accent);
+  flex: none;
+}
+
+.optionBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.optionName {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.optionMeta {
+  font-size: 13px;
+  color: var(--public-text-muted);
+  margin-top: 2px;
+}
+
+.status {
+  color: var(--public-text-muted);
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.error {
+  color: var(--public-danger);
+  font-size: 14px;
+  padding: 8px 0;
+}

@@ -1,0 +1,259 @@
+.page {
+  max-width: 980px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 24px;
+}
+
+.newBookingButton {
+  background: var(--admin-accent);
+  color: #fff;
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.newBookingButton:hover {
+  background: var(--admin-accent-hover);
+}
+
+.weekNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 12px;
+}
+
+.weekLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--admin-text-muted);
+}
+
+.weekNavButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.weekNavButton {
+  background: var(--admin-surface);
+  border: 1.5px solid var(--admin-border);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--admin-text);
+}
+
+.weekNavButton:hover {
+  border-color: var(--admin-accent);
+  color: var(--admin-accent);
+}
+
+.dayStrip {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.dayPill {
+  text-align: center;
+  padding: 10px 4px;
+  border-radius: 9px;
+  border: 1.5px solid var(--admin-border);
+  background: var(--admin-surface);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--admin-text);
+}
+
+.dayPill:hover {
+  border-color: var(--admin-accent);
+}
+
+.dayPillActive {
+  background: var(--admin-accent);
+  border-color: var(--admin-accent);
+  color: #fff;
+}
+
+.dayPillCount {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 2px;
+  opacity: 0.75;
+}
+
+.agenda {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.agendaHeading {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  font-family: var(--admin-font-serif);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-left: 4px solid var(--admin-accent);
+  border-radius: 10px;
+  padding: 16px 20px;
+  flex-wrap: wrap;
+}
+
+.rowFlagged {
+  background: var(--admin-warn-soft);
+  border-color: var(--admin-warn-border);
+  border-left-color: var(--admin-warn);
+}
+
+.rowCancelled,
+.rowNoShow {
+  opacity: 0.65;
+}
+
+.rowTime {
+  width: 76px;
+  font-weight: 700;
+  font-size: 14px;
+  flex: none;
+}
+
+.rowBody {
+  flex: 1;
+  min-width: 200px;
+}
+
+.rowTitle {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.rowSubtitle {
+  font-size: 13px;
+  color: var(--admin-text-muted);
+  margin-top: 2px;
+}
+
+.rowMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rowDuration {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--admin-text-muted);
+  flex: none;
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  flex: none;
+  white-space: nowrap;
+}
+
+.badgeOverride {
+  background: var(--admin-warn);
+  color: #fff;
+}
+
+.badgeConflict {
+  background: var(--admin-danger);
+  color: #fff;
+}
+
+.badgeFlagged {
+  background: #fff;
+  color: var(--admin-warn-text);
+  border: 1.5px solid var(--admin-warn);
+}
+
+.badgeNotificationFailed {
+  background: var(--admin-danger-soft);
+  color: var(--admin-danger);
+}
+
+.badgeStatus {
+  background: var(--admin-accent-soft);
+  color: var(--admin-accent);
+}
+
+.noShowButton {
+  background: transparent;
+  border: 1.5px solid var(--admin-border);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--admin-text);
+  flex: none;
+}
+
+.noShowButton:hover:not(:disabled) {
+  border-color: var(--admin-danger);
+  color: var(--admin-danger);
+}
+
+.noShowButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.emptyRow {
+  background: var(--admin-surface);
+  border: 1px dashed var(--admin-border);
+  border-radius: 10px;
+  padding: 20px;
+  color: var(--admin-text-muted);
+  font-size: 14px;
+}
+
+.error {
+  color: var(--admin-danger);
+  background: var(--admin-danger-soft);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.loading {
+  color: var(--admin-text-muted);
+  font-size: 14px;
+}

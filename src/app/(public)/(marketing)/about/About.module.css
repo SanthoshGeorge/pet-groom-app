@@ -1,0 +1,104 @@
+.page {
+  padding: 56px 64px 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.title {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: var(--public-text-muted);
+  font-size: 15px;
+  margin: 0 0 40px;
+  max-width: 560px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.about p {
+  color: var(--public-text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0 0 16px;
+}
+
+.card {
+  background: var(--public-surface);
+  border: 1px solid var(--public-border);
+  border-radius: 14px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.infoBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.infoLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--public-text-muted);
+  letter-spacing: 0.04em;
+}
+
+.hoursRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 4px 0;
+}
+
+.hoursDay {
+  color: var(--public-text);
+  font-weight: 600;
+}
+
+.hoursValue {
+  color: var(--public-text-muted);
+}
+
+.infoValue {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.bookButton {
+  background: var(--public-accent);
+  color: #fff;
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.bookButton:hover {
+  background: var(--public-accent-hover);
+  color: #fff;
+}
+
+.placeholderNote {
+  font-size: 12.5px;
+  color: var(--public-text-muted);
+}

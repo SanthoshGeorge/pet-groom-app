@@ -1,0 +1,182 @@
+/*
+ * Shared card/form chrome for the four auth screens (login, signup, forgot-password,
+ * reset-password) — Code Generation Step 21. NO MOCKUP EXISTS for any of these screens (the
+ * approved design canvas only covers the booking flow + admin calendar); this is their
+ * first visual implementation, built from `frontend-components.md`'s component/prop/state
+ * specs rather than a pixel reference.
+ *
+ * Deliberately one shared module (the StepCards.module.css precedent for the booking
+ * wizard's steps) rather than four near-duplicate files, because these four screens really
+ * are one repeated pattern — a narrow centered card, same field/button treatment — unlike
+ * e.g. About/Gallery/Services, which happen to share a `.page`/`.title` shape but are
+ * otherwise unrelated pages. Values themselves (colors, radii, spacing) are copied from
+ * Step 20's `ManageBooking.module.css`, the closest existing analog (also a no-mockup,
+ * narrow-card public page), so these screens read as part of the same site rather than
+ * introducing a second visual language. All colors reference `public-tokens.css`.
+ */
+.page {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+}
+
+.title {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: var(--public-text-muted);
+  font-size: 15px;
+  margin: 0 0 32px;
+}
+
+.card {
+  background: var(--public-surface);
+  border: 1px solid var(--public-border);
+  border-radius: 12px;
+  padding: 28px;
+}
+
+.fieldGroup {
+  margin-bottom: 18px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--public-text-muted);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.field {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1.5px solid var(--public-border);
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--public-text);
+  background: var(--public-bg);
+}
+
+.field:focus {
+  outline: none;
+  border-color: var(--public-accent);
+}
+
+.hint {
+  font-size: 12.5px;
+  color: var(--public-text-muted);
+  margin: -10px 0 18px;
+}
+
+.error {
+  color: var(--public-danger);
+  background: var(--public-danger-soft);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.success {
+  color: var(--public-done);
+  background: var(--public-done-soft);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.submitButton {
+  background: var(--public-accent);
+  color: #fff;
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: var(--public-accent-hover);
+}
+
+.submitButton:disabled {
+  background: oklch(88% 0.01 60);
+  color: var(--public-text-muted);
+  cursor: not-allowed;
+}
+
+/** Same visual weight as `.submitButton`, for a "next step" `<Link>` rather than a `<button>`. */
+.linkButton {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.actionsRow {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.btnPrimary {
+  background: var(--public-accent);
+  color: #fff;
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  flex: 1;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background: var(--public-accent-hover);
+}
+
+.btnPrimary:disabled {
+  background: oklch(88% 0.01 60);
+  color: var(--public-text-muted);
+  cursor: not-allowed;
+}
+
+.btnSecondary {
+  background: transparent;
+  color: var(--public-text);
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  border: 1.5px solid var(--public-border);
+  cursor: pointer;
+}
+
+.btnSecondary:disabled {
+  color: var(--public-text-muted);
+  cursor: not-allowed;
+}
+
+.linkRow {
+  display: flex;
+  justify-content: flex-end;
+  margin: -10px 0 18px;
+}
+
+.link {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.smallNote {
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--public-text-muted);
+  margin: 18px 0 0;
+}

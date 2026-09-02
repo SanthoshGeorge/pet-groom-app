@@ -1,0 +1,13 @@
+.placeholder {
+  background: repeating-linear-gradient(
+    135deg,
+    oklch(93% 0.01 60),
+    oklch(93% 0.01 60) 10px,
+    oklch(90% 0.012 60) 10px,
+    oklch(90% 0.012 60) 20px
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--public-text-muted);
+}

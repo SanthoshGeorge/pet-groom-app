@@ -1,0 +1,147 @@
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  padding: 80px 64px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    padding: 48px 24px;
+  }
+}
+
+.heroCopy {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 280px;
+}
+
+.badge {
+  display: inline-flex;
+  width: fit-content;
+  background: var(--public-accent-soft);
+  color: var(--public-accent-hover);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.heroTitle {
+  font-size: 46px;
+  line-height: 1.15;
+  max-width: 520px;
+}
+
+.heroSubtitle {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--public-text-muted);
+  max-width: 460px;
+  margin: 0;
+}
+
+.heroActions {
+  display: flex;
+  gap: 14px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  background: var(--public-accent);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.btnPrimary:hover {
+  background: var(--public-accent-hover);
+  color: #fff;
+}
+
+.btnSecondary {
+  background: transparent;
+  color: var(--public-text);
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  border: 1.5px solid var(--public-border);
+  cursor: pointer;
+}
+
+.btnSecondary:hover {
+  background: var(--public-surface);
+}
+
+.heroPhoto {
+  flex: 1 1 0;
+  height: 380px;
+  min-width: 280px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.section {
+  padding: 24px 64px 72px;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.sectionTitle {
+  font-size: 28px;
+}
+
+.sectionLink {
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.gallerySection {
+  padding: 0 64px 72px;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .galleryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.galleryPhoto {
+  height: 180px;
+  border-radius: 12px;
+  font-size: 13px;
+}

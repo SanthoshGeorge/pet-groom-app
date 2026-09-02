@@ -1,0 +1,132 @@
+.fieldRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 560px) {
+  .fieldRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fieldGroup {
+  margin-bottom: 26px;
+}
+
+.field {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1.5px solid var(--public-border);
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--public-text);
+  background: var(--public-surface);
+}
+
+.field:focus {
+  outline: none;
+  border-color: var(--public-accent);
+}
+
+select.field {
+  cursor: pointer;
+}
+
+textarea.field {
+  resize: vertical;
+  min-height: 44px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--public-text-muted);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.fieldError {
+  font-size: 12.5px;
+  color: var(--public-danger);
+  margin-top: 4px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--public-border);
+  margin-bottom: 26px;
+}
+
+.petBlock {
+  margin-bottom: 22px;
+}
+
+.petHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 10px;
+}
+
+.petTitle {
+  font-size: 16px;
+}
+
+.gettingNote {
+  font-size: 13px;
+  color: var(--public-text-muted);
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--public-danger);
+  cursor: pointer;
+}
+
+.addPetButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 22px 0;
+  padding: 14px 18px;
+  border: 1.5px dashed var(--public-border);
+  border-radius: 10px;
+  color: var(--public-accent);
+  font-weight: 600;
+  font-size: 14px;
+  width: fit-content;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.addPetButton:hover {
+  border-color: var(--public-accent);
+}
+
+.notice {
+  background: var(--public-muted-bg);
+  border-radius: 10px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.noticeIcon {
+  color: var(--public-text-muted);
+  flex: none;
+}
+
+.noticeText {
+  font-size: 13px;
+  color: var(--public-text-muted);
+}

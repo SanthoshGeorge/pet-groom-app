@@ -1,0 +1,34 @@
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 20px;
+}
+
+.error {
+  color: var(--public-danger);
+  font-size: 14px;
+  margin: 0;
+}
+
+.continueButton {
+  background: var(--public-accent);
+  color: #fff;
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.continueButton:hover:not(:disabled) {
+  background: var(--public-accent-hover);
+}
+
+.continueButton:disabled {
+  background: oklch(88% 0.01 60);
+  color: var(--public-text-muted);
+  cursor: not-allowed;
+}

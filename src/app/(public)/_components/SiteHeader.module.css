@@ -1,0 +1,90 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 64px;
+  border-bottom: 1px solid var(--public-border);
+  background: var(--public-surface);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--public-text);
+}
+
+.brandIcon {
+  color: var(--public-accent);
+}
+
+.brandName {
+  font-family: var(--public-font-serif);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--public-text);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  font-weight: 600;
+  font-size: 15px;
+  flex-wrap: wrap;
+}
+
+.navLink {
+  color: var(--public-text);
+}
+
+.navLink:hover {
+  color: var(--public-accent);
+}
+
+/* Login-state links (Step 21's `HeaderAuthLinks`) — grouped so "My Account"/"Log Out" stay
+   visually paired and wrap together on narrow widths, same as the rest of `.nav`'s links. */
+.accountLinks {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* A `.navLink`-styled `<button>` (the "Log Out" action) — resets button chrome to read as a
+   plain nav link, matching `.navLink`'s color/hover/weight exactly. */
+.navButton {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--public-text);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.navButton:hover:not(:disabled) {
+  color: var(--public-accent);
+}
+
+.navButton:disabled {
+  color: var(--public-text-muted);
+  cursor: not-allowed;
+}
+
+.bookButton {
+  background: var(--public-accent);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.bookButton:hover {
+  background: var(--public-accent-hover);
+  color: #fff;
+}

@@ -1,0 +1,50 @@
+.page {
+  padding: 56px 64px 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: var(--public-text-muted);
+  font-size: 15px;
+  margin: 0;
+  max-width: 520px;
+}
+
+.bookAllButton {
+  background: var(--public-accent);
+  color: #fff;
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.bookAllButton:hover {
+  background: var(--public-accent-hover);
+  color: #fff;
+}
+
+.note {
+  margin-top: 40px;
+  color: var(--public-text-muted);
+  font-size: 13px;
+}

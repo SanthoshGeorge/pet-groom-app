@@ -1,0 +1,123 @@
+/*
+ * `AccountPetsPage` + `PetCard`/`AddPetForm`/`EditPetForm` — Code Generation Step 21. NO
+ * MOCKUP EXISTS for this screen; built from `frontend-components.md`'s spec. Reuses
+ * `../../_auth/AuthCard.module.css`'s field/button/error primitives (same visual language as
+ * the rest of the site's forms) plus this page's own wider page shell and pet-list-specific
+ * layout, which don't fit that narrower auth-card pattern.
+ */
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+}
+
+.title {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: var(--public-text-muted);
+  font-size: 15px;
+  margin: 0 0 32px;
+}
+
+.petList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.petCard {
+  background: var(--public-surface);
+  border: 1px solid var(--public-border);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+
+.petCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.petName {
+  font-size: 18px;
+  margin: 0 0 4px;
+}
+
+.petMeta {
+  color: var(--public-text-muted);
+  font-size: 13.5px;
+  margin: 0;
+}
+
+.petNote {
+  font-size: 13.5px;
+  margin: 10px 0 0;
+  color: var(--public-text);
+}
+
+.editButton {
+  background: transparent;
+  border: 1.5px solid var(--public-border);
+  color: var(--public-text);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.editButton:hover {
+  border-color: var(--public-accent);
+}
+
+.emptyState {
+  color: var(--public-text-muted);
+  font-size: 14px;
+  padding: 12px 0 20px;
+}
+
+.petFormCard {
+  background: var(--public-surface);
+  border: 1px solid var(--public-border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.petFormTitle {
+  font-size: 17px;
+  margin: 0 0 18px;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 480px) {
+  .fieldRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.addPetButton {
+  background: transparent;
+  border: 1.5px dashed var(--public-border);
+  color: var(--public-accent);
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.addPetButton:hover {
+  border-color: var(--public-accent);
+}

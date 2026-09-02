@@ -23,6 +23,12 @@ const eslintConfig = defineConfig([
     "src/modules/booking/prisma/**",
     "src/modules/notification/prisma/**",
     "src/modules/reporting/prisma/**",
+    // Step 18's real-Postgres repository integration tests — these import
+    // `@prisma/client` too (directly, and transitively via the files above), for the
+    // same reason. See tests/integration/repositories/test-helpers/prisma-client.ts's
+    // header comment. Matches the same path vitest.config.mts's `exclude` and
+    // tsconfig.json's `exclude` both use.
+    "tests/integration/repositories/**",
   ]),
 ]);
 

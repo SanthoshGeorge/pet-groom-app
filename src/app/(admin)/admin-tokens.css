@@ -1,0 +1,47 @@
+/*
+ * Design tokens for the admin/owner site (Step 22), ported from the approved mockup
+ * canvas's shared `:root` block — `Admin-Calendar.dc.html` and `Admin-NewBooking.dc.html`
+ * declare (almost) the same values; `--admin-done`/`--admin-done-soft` come from the
+ * NewBooking artboard only (its "SELECTED" customer badge), folded in here since both
+ * mockups are otherwise identical. This is a deliberately different palette from
+ * `public-tokens.css` (dark sidebar, warm-neutral surface) — the admin site is a
+ * shop-owner-only dashboard, not the public marketing site, and the two mockups agree on
+ * that different visual language, so this file does not attempt to match `public-tokens.css`
+ * values (per the Step 22 task's explicit instruction to follow the mockups' own look).
+ *
+ * `--admin-danger`/`--admin-danger-soft` have no mockup source (neither admin artboard shows
+ * a destructive-action color) — added here, formed the same way `public-tokens.css` derived
+ * its own `--public-danger` pair, for the one place this pass needs one: confirming a
+ * service deactivation (no-mockup screen, `AdminServicesPage`/`DeactivateServiceConfirm` per
+ * frontend-components.md).
+ *
+ * Plain CSS custom properties, scoped with an `--admin-` prefix so they never collide with
+ * `public-tokens.css`'s `--public-*` names or `globals.css`'s `--background`/`--foreground`
+ * (both additive, neither overridden). Consumed via CSS Modules under `src/app/(admin)/`,
+ * same technical approach Steps 20-21 established for the public site.
+ */
+:root {
+  --admin-bg: oklch(97% 0.008 70);
+  --admin-surface: oklch(100% 0 0);
+  --admin-text: oklch(27% 0.02 60);
+  --admin-text-muted: oklch(50% 0.02 60);
+  --admin-accent: oklch(62% 0.14 45);
+  --admin-accent-hover: oklch(54% 0.14 45);
+  --admin-accent-soft: oklch(94% 0.035 50);
+  --admin-border: oklch(90% 0.012 60);
+  --admin-sidebar: oklch(23% 0.018 60);
+  --admin-sidebar-text: oklch(75% 0.01 60);
+  --admin-sidebar-text-muted: oklch(68% 0.01 60);
+  --admin-sidebar-active-bg: oklch(32% 0.02 60);
+  --admin-sidebar-border: oklch(32% 0.02 60);
+  --admin-warn: oklch(64% 0.15 65);
+  --admin-warn-soft: oklch(94% 0.04 75);
+  --admin-warn-text: oklch(45% 0.1 60);
+  --admin-warn-border: oklch(80% 0.06 65);
+  --admin-done: oklch(58% 0.1 145);
+  --admin-done-soft: oklch(94% 0.03 145);
+  --admin-danger: oklch(55% 0.18 25);
+  --admin-danger-soft: oklch(94% 0.04 25);
+  --admin-font-sans: "Karla", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --admin-font-serif: "Lora", Georgia, "Times New Roman", serif;
+}

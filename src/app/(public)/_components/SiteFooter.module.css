@@ -1,0 +1,52 @@
+.footer {
+  background: oklch(24% 0.02 60);
+  color: oklch(90% 0.01 60);
+  padding: 48px 64px;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.brandName {
+  font-family: var(--public-font-serif);
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+}
+
+.blurb {
+  margin: 0;
+  font-size: 14px;
+  color: oklch(78% 0.01 60);
+  max-width: 300px;
+  line-height: 1.6;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.colTitle {
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.col a {
+  color: inherit;
+}
+
+.col a:hover {
+  color: #fff;
+}

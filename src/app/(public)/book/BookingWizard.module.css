@@ -1,0 +1,22 @@
+.page {
+  width: 100%;
+  min-height: 100%;
+  padding-bottom: 60px;
+}
+
+.content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 44px 24px 0;
+}
+
+.heading {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.subheading {
+  color: var(--public-text-muted);
+  font-size: 15px;
+  margin: 0 0 32px;
+}

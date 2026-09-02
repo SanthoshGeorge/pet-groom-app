@@ -38,6 +38,7 @@
     "src/modules/availability/prisma/**/*",
     "src/modules/booking/prisma/**/*",
     "src/modules/notification/prisma/**/*",
-    "src/modules/reporting/prisma/**/*"
+    "src/modules/reporting/prisma/**/*",
+    "tests/integration/repositories/**/*"
   ]
 }

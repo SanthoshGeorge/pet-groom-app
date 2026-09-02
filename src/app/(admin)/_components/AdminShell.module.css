@@ -1,0 +1,80 @@
+.shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--admin-bg);
+  color: var(--admin-text);
+  font-family: var(--admin-font-sans);
+}
+
+.sidebar {
+  width: 230px;
+  flex: none;
+  background: var(--admin-sidebar);
+  padding: 26px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px 26px;
+  color: var(--admin-accent);
+}
+
+.brandName {
+  color: #fff;
+  font-family: var(--admin-font-serif);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--admin-sidebar-text);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.navItem:hover {
+  color: #fff;
+}
+
+.navItemActive {
+  background: var(--admin-sidebar-active-bg);
+  color: #fff;
+}
+
+.sidebarFooter {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--admin-sidebar-border);
+}
+
+.logoutItem {
+  composes: navItem;
+  color: var(--admin-sidebar-text-muted);
+}
+
+.logoutItem:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 32px 40px;
+}
