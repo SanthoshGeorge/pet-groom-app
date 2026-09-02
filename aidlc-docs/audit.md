@@ -211,3 +211,187 @@
 **Context**: Out-of-band bug fix, not an AI-DLC workflow stage transition. Returning to CONSTRUCTION - Functional Design (availability), still awaiting user approval to proceed to `booking`.
 
 ---
+
+## Functional Design (availability) — Approved
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "worked. Please proceed to the next step"
+**AI Response**: Confirmed the bundled rendering fix was pulled and pushed successfully. Treated as approval of the availability Functional Design artifacts (no changes requested after review). Marked Functional Design for availability complete and approved. Proceeding to Functional Design for `booking` (third group in the internal build order — the hub component).
+**Context**: CONSTRUCTION - Functional Design (availability: approved, complete) -> CONSTRUCTION - Functional Design (booking: starting)
+
+---
+
+## Functional Design (booking) — Plan and Questions Issued
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: N/A (awaiting response)
+**AI Response**: Created pet-grooming-booking-platform-booking-functional-design-plan.md with 8 questions. Question 1 surfaces and resolves a real conflict discovered between component-methods.md's single-serviceId createBooking signature and both FR-6's "service (or services)" wording and availability's already-approved BR-AVAIL-1 example (which assumed different services per pet). Other questions cover: appointment status lifecycle / no-show marking (component-methods.md has no method for this — flagged as a gap to fill), reschedule mechanics, multi-pet cancel/reschedule scope, guest lookup matching strictness, where visit-specific notes live, booking reference format, and whether owner-initiated cancellations notify the customer (extending FR-10's pattern). Presented to user and stopped per Functional Design Step 4/5 gate.
+**Context**: CONSTRUCTION - Functional Design (booking) — in progress, awaiting user answers
+
+---
+
+## Functional Design (booking) — Answers Received, Artifacts Generated
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "1A, 2A,3A,4A,5A, take your recommended approach for the rest" — resolved to 1A-8A (A judged the more story-faithful/consistent option for Q6, Q7, Q8: per-visit notes as a separate field better matches SO-1's wording than reusing only permanent pet notes; the mockup already shows the HTG-4821 reference format; and extending FR-10's "always notify the customer" pattern to cancellations avoids a customer being uninformed their appointment was cancelled)
+**AI Response**: All 8 answers accepted, no ambiguity to analyze. Key resolution: Question 1's conflict (single-service createBooking signature vs. FR-6/availability's per-pet-service assumption) settled as per-pet service selection via a new AppointmentLineItem entity — component-methods.md's createBooking signature flagged for updating in Code Generation. Generated booking-domain-entities.md (Appointment, AppointmentLineItem, status lifecycle including the Completed->NoShow exception), booking-business-rules.md (BR-BOOK-1..11), and booking-business-logic-model.md (7 flows: create booking, create override booking, cancel, reschedule, guest lookup, list appointments, mark no-show — plus a new markNoShow method not previously in component-methods.md). No new frontend-components.md — booking-flow screens already covered by the mockup canvas.
+**Context**: CONSTRUCTION - Functional Design (booking) — complete, awaiting user approval to proceed to Functional Design for `notification`/`reporting`
+
+---
+
+## Functional Design (booking) — Approved
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: Marked Functional Design for booking complete and approved. Proceeding to Functional Design for `notification`/`reporting` (fourth and final group in the internal build order — both are "leaf" components with no downstream dependents).
+**Context**: CONSTRUCTION - Functional Design (booking: approved, complete) -> CONSTRUCTION - Functional Design (notification/reporting: starting)
+
+---
+
+## Functional Design (notification/reporting) — Plan and Questions Issued
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: N/A (awaiting response)
+**AI Response**: Created pet-grooming-booking-platform-notification-reporting-functional-design-plan.md with 6 questions covering: exact reminder timing (24h-before vs. fixed daily send time), short-notice booking/reschedule reminder behavior (an edge case no story covers), channel-failure independence and whether notification failure ever blocks booking/cancellation, owner visibility of failed sends, reporting period selection, and what statuses count toward SO-6's "appointments" total. Presented to user and stopped per Functional Design Step 4/5 gate. This is the final module group — all call sites into notification and all statuses reporting reads are already fixed by the approved booking pass.
+**Context**: CONSTRUCTION - Functional Design (notification/reporting) — in progress, awaiting user answers
+
+---
+
+## Functional Design (notification/reporting) — Answers Received, Artifacts Generated
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "1B, 2B,3A,4A,5A,6B"
+**AI Response**: All 6 answers accepted, no ambiguity to analyze. Key resolutions: reminders fire at a fixed daily time (not exactly 24h before) with immediate-send as the fallback for short-notice bookings; notification failures never block booking/cancellation and are flagged on the appointment (new `notificationFailed` field) rather than just logged; reports use preset This Week/This Month periods only, and the appointment total includes cancelled appointments (volume framing, not just completed visits). Generated notification-business-rules.md (BR-NOTIF-1..7, including a conceptual ScheduledReminder marker), notification-business-logic-model.md (5 flows: confirmation, schedule reminder, daily reminder batch job, cancel reminder, cancellation confirmation), and reporting-business-rules.md (BR-REPORT-1..4). No domain-entities.md or frontend-components.md this pass, per the plan's scoping (notification has no full entity of its own; reporting reads booking's data; report screen extends the mockup's existing stat-strip pattern).
+**Context**: CONSTRUCTION - Functional Design (notification/reporting) — complete, awaiting user approval. This is the FINAL module group — approval here completes Functional Design for the entire unit.
+
+---
+
+## Functional Design (notification/reporting) — Approved; Functional Design Complete for All Modules
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: Marked Functional Design for notification/reporting complete and approved. This completes Functional Design for all 7 modules (auth, customer, catalog, availability, booking, notification, reporting) across 4 passes. Proceeding to NFR Requirements (per unit) — the next Construction stage per unit-of-work-plan.md's execution order.
+**Context**: CONSTRUCTION - Functional Design (ALL MODULES: approved, complete) -> CONSTRUCTION - NFR Requirements (starting)
+
+---
+
+## NFR Requirements — Plan and Questions Issued
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: N/A (awaiting response)
+**AI Response**: Created pet-grooming-booking-platform-nfr-requirements-plan.md with 10 questions covering: language/framework (recommended Next.js+TypeScript), database (recommended managed Postgres, needed for availability's atomic slot-claim requirement), hosting platform (recommended Vercel), auth implementation (hand-rolled vs managed, against the already-designed AuthIdentity/Session model), email provider, SMS provider (flagged explicitly as a real recurring cost against NFR-7, unlike everything else which fits free tiers), the daily reminder batch job mechanism, testing scope, domain/environment strategy, and photo gallery storage. This is a per-unit stage (not per module group) — one pass covers the whole app. Presented to user and stopped per NFR Requirements Step 4/5 gate.
+**Context**: CONSTRUCTION - NFR Requirements — in progress, awaiting user answers
+
+---
+
+## NFR Requirements — Partial Answers Received, Follow-up Issued
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "1A,2A,3A,4X - go with recommendation, 5A,6B,7A,8A,9A"
+**AI Response**: Recorded answers 1-9 (Q4 answered "X - go with recommendation"; resolved to A/hand-rolled, since it matches the already-designed AuthIdentity/Session business rules with no adaptation and the auth surface is small — noted as my recommendation, not a default guess). Per Step 5, detected Question 10 (photo gallery storage) was not included in the reply — created a short follow-up file isolating just that one question rather than proceeding with an assumption, since Step 5 requires resolving all ambiguity/gaps before generating artifacts.
+**Context**: CONSTRUCTION - NFR Requirements — in progress, awaiting Question 10 answer
+
+---
+
+## NFR Requirements — Final Answer Received, Artifacts Generated
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "10A"
+**AI Response**: All 10 answers now complete, no ambiguity. Generated tech-stack-decisions.md (Next.js+TypeScript, managed Postgres, Vercel hosting, hand-rolled auth, Resend email, stub/log-only SMS pending explicit cost approval, Vercel Cron for the daily reminder job, Vitest unit+integration testing, free subdomain/single environment, static repo-committed gallery images) and nfr-requirements.md (scalability, performance, availability, security, reliability, maintainability, usability, and cost sections, each grounded in specific Functional Design rules/entities). Flagged explicitly: SMS is the one real recurring cost in the stack (~$5-6/month) and is intentionally stubbed until real approval is given.
+**Context**: CONSTRUCTION - NFR Requirements — complete, awaiting user approval to proceed to NFR Design
+
+---
+
+## NFR Requirements — Approved
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "Continue to Next Stage"
+**AI Response**: Marked NFR Requirements complete and approved. Proceeding to NFR Design (per unit).
+**Context**: CONSTRUCTION - NFR Requirements (approved, complete) -> CONSTRUCTION - NFR Design (starting)
+
+---
+
+## NFR Design — Plan and Questions Issued
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: N/A (awaiting response)
+**AI Response**: Created pet-grooming-booking-platform-nfr-design-plan.md, evaluating all 5 mandatory categories (Resilience, Scalability, Performance, Security, Logical Components) with an applicability table, then 8 questions: notification retry pattern, slot-claim concurrency mechanism (unique constraint vs. row lock), availability read caching, appointment-list pagination, input validation pattern, auth rate limiting, cron endpoint protection, and logging/observability approach. Presented to user and stopped per NFR Design Step 4/5 gate.
+**Context**: CONSTRUCTION - NFR Design — in progress, awaiting user answers
+
+---
+
+## NFR Design — Answers Received, Artifacts Generated
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "1A,2A,3A, pick the simple approach for the rest" — resolved to 4B, 5B, 6B, 7A, 8A (the lower-setup/fewer-moving-parts option per each question's own framing; for Q7 that was actually option A, since the shared-secret header was described as the simpler, standard choice over IP allowlisting)
+**AI Response**: All 8 answers accepted, no ambiguity to analyze. Generated nfr-design-patterns.md (resilience: no notification retry + DB-constraint-based slot claiming; scalability: no caching on availability reads; performance: date-range-bounded lists instead of pagination; security: manual per-route validation with the inconsistency risk explicitly named rather than silently accepted, no auth rate limiting with the trade-off stated) and logical-components.md (cron job with shared-secret protection, DB uniqueness constraint, session store choice, platform-native logging, plus an explicit "deliberately not added" section — no queue, no circuit breaker, no rate limiter infra, no extra caching layer — so a future reader doesn't mistake lean scope for an oversight).
+**Context**: CONSTRUCTION - NFR Design — complete, awaiting user approval to proceed to Infrastructure Design
+
+---
+
+## NFR Design — Approved
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "continue to Next Stage"
+**AI Response**: Marked NFR Design complete and approved. Proceeding to Infrastructure Design (per unit).
+**Context**: CONSTRUCTION - NFR Design (approved, complete) -> CONSTRUCTION - Infrastructure Design (starting)
+
+---
+
+## Infrastructure Design — Plan and Questions Issued
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: N/A (awaiting response)
+**AI Response**: Created pet-grooming-booking-platform-infrastructure-design-plan.md, evaluating all 7 mandatory categories with an applicability table — Messaging and Shared Infrastructure marked not applicable (justified: NFR Design already ruled out a queue; single-tenant app), Compute and Monitoring marked carried-forward from earlier stages with no new question needed. 5 real questions on the remaining gaps: Postgres provider (Neon vs. Supabase, left open by NFR Requirements), backup/recovery posture, deployment region, CI/CD connection to the existing GitHub repo, and secrets management. Presented to user and stopped per Infrastructure Design Step 4/5 gate.
+**Context**: CONSTRUCTION - Infrastructure Design — in progress, awaiting user answers
+
+---
+
+## Infrastructure Design — Answers Received, Artifacts Generated
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "choose all A"
+**AI Response**: All 5 answers accepted (1A=Neon, 2A=free-tier backups only, 3A=US East region, 4A=Vercel GitHub integration auto-deploy, 5A=Vercel Environment Variables), no ambiguity. Generated infrastructure-design.md (concrete mapping across all 7 categories, with Messaging and Shared Infrastructure explicitly confirmed not applicable) and deployment-architecture.md (Mermaid + text diagram, request-flow walkthroughs for booking creation and the daily reminder job, environment variable list, and explicitly scoped "what changes when SMS/domain are upgraded" sections so those remain easy future changes rather than rework). No shared-infrastructure.md generated (not applicable, single-tenant, justified in the plan's applicability table).
+**Context**: CONSTRUCTION - Infrastructure Design — complete, awaiting user approval to proceed to Code Generation
+
+---
+
+## Infrastructure Design — Approved
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "continue to next stage"
+**AI Response**: Marked Infrastructure Design complete and approved. This completes all design/planning stages for the unit (Functional Design, NFR Requirements, NFR Design, Infrastructure Design). Proceeding to Code Generation.
+**Context**: CONSTRUCTION - Infrastructure Design (approved, complete) -> CONSTRUCTION - Code Generation (starting)
+
+---
+
+## Code Generation Part 1 (Planning) — Plan Created, Approval Requested
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: N/A (awaiting response)
+**AI Response**: Created pet-grooming-booking-platform-code-generation-plan.md — 28 numbered steps across 11 phases (Project Structure, Business Logic x7 modules, Business Logic Testing, API Layer, API Layer Testing, Repository Layer, Repository Layer Testing, Frontend Components, Frontend Testing, Database Migrations, Documentation/Deployment Artifacts), each traced to specific approved Functional Design/NFR/Infrastructure Design artifacts, plus a full story-traceability table confirming all 13 stories are covered. One execution-level decision not pinned by an earlier stage was made explicit in the plan itself rather than silently assumed: Prisma as the ORM/database-access layer (tech-stack-decisions.md specified Postgres but not an access library). Presented plan summary to user; this is the Code Generation Part 1 approval gate (Step 7) — full plan approval required before Part 2 (actual generation) begins.
+**Context**: CONSTRUCTION - Code Generation, Part 1 - Planning (plan created, awaiting user approval)
+
+---
+
+## Code Generation Part 1 (Planning) — Approved
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: "approved"
+**AI Response**: Marked the full 28-step Code Generation plan approved, including the Prisma ORM decision. Proceeding to Part 2 - Generation, executing steps in order starting with Step 1 (project structure setup).
+**Context**: CONSTRUCTION - Code Generation, Part 1 - Planning (approved, complete) -> CONSTRUCTION - Code Generation, Part 2 - Generation (starting)
+
+---
+
+## Code Generation Part 2 — Phase A Complete (Steps 1-2)
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: N/A (autonomous execution of the approved plan)
+**AI Response**: Delegated Steps 1-2 to a subagent. Step 1: scaffolded the Next.js 14+/TypeScript project at the workspace root (`src/app` routes incl. `(public)`/`(admin)` route groups, `src/modules/{auth,customer,catalog,availability,booking,notification,reporting}/` stub files, `prisma/`, `tests/`, `config/`), configured Vitest, ESLint, and TypeScript strictness per `unit-of-work.md`'s Code Organization Strategy. Worked around `create-next-app` refusing to scaffold into the existing non-empty workspace by scaffolding into a scratch directory and manually merging in the generated files (excluding `node_modules`, `.next`, `.git`, and the tool's auto-generated `CLAUDE.md`/`AGENTS.md`, which would have overwritten this project's AI-DLC governance files). Step 2: wrote `prisma/schema.prisma` covering all 11 entities across all 7 modules and 6 enums, including the `@@unique([groomerId, slotStart])` slot-uniqueness constraint (BR-AVAIL-5/NFR Design resolution, with a schema comment noting true overlap-prevention is deferred to the Step 17 repository layer). Two schema-level judgment calls not fully pinned by earlier artifacts were resolved and documented as inline schema comments rather than silently decided: (1) `domain-entities.md` double-documented the AuthIdentity<->Owner FK on both sides — resolved to one physical FK on `Owner.authIdentityId` (nullable+unique) with a Prisma back-relation on the `AuthIdentity` side; (2) `ScheduledReminder`'s cardinality relative to `Appointment` was never stated explicitly — modeled as 1:many (a reschedule can leave a Cancelled reminder row alongside a new Pending one). Verification: `next build`, `tsc --noEmit`, `eslint .`, and `vitest run` all pass. Prisma CLI itself (`validate`/`format`/`generate`) could not run — this container's egress policy blocks `binaries.prisma.sh` (confirmed via 403/connect_rejected on the proxy status endpoint) — so the schema was instead hand-verified (brace balance, model/enum counts, relation pairs both present). This constraint will need a workaround when Step 26 (Database Migration Scripts, `prisma migrate dev`) is reached. No git commit made yet (none requested for this checkpoint). Steps 1-2 marked `[x]` in the code-generation-plan.md.
+**Context**: CONSTRUCTION - Code Generation, Part 2 - Generation, Phase A (complete) -> Phase B (Business Logic Generation, Steps 3-9, starting)
+
+---
+
+## Code Generation Part 2 — Steps 3-5 Complete (auth, customer, catalog business logic)
+**Timestamp**: 2026-09-01T00:00:00Z
+**User Input**: N/A (autonomous execution of the approved plan)
+**AI Response**: Delegated Steps 3-5 to a subagent. Implemented `src/modules/auth/` (BR-AUTH-1..6: identity resolution, registration, login, logout, session validation, password reset via stateless self-verifying HMAC tokens keyed by SESSION_SECRET+current password hash rather than a new persisted entity), `src/modules/customer/` (BR-CUST-1..7: owner create/find/update, pet CRUD, account linking), and `src/modules/catalog/` (BR-CAT-1..5: service CRUD, active/inactive listing). Architecture: each module depends only on a self-defined repository *interface* (no direct `@prisma/client` import) so business logic compiles without the Prisma client, whose generation is blocked by this container's egress policy — concrete Prisma-backed implementations are deferred to the already-planned Step 17 (Repository Layer). Added `bcryptjs` (pure-JS, no native build) for password hashing per NFR's bcrypt/argon2 requirement. Judgment calls documented in code comments rather than silently decided: `registerAccount`'s signature refined to match Functional Design's Flow 2 (contact info, not a pre-existing ownerId); cross-module wiring between auth and customer done via a small structural `OwnerIdentityResolver` interface rather than a direct import; `removePet`/`reactivateService`/`Groomer` CRUD deliberately not implemented (no story/rule requires them, consistent with Functional Design's own "open item" flagging). Verification: `tsc --noEmit`, `eslint .`, `next build`, `vitest run` all pass. Steps 3-5 marked `[x]` in the code-generation-plan.md. No git commit made.
+**Context**: CONSTRUCTION - Code Generation, Part 2 - Generation, Phase B (Steps 3-5 of 3-9 complete) -> continuing with Steps 6-7 (availability, booking)
+
+---
+
+## Code Generation Part 2 — Steps 6-7 Complete (availability, booking business logic)
+**Timestamp**: 2026-09-02T00:00:00Z
+**User Input**: N/A (autonomous execution of the approved plan)
+**AI Response**: Delegated Steps 6-7 to a subagent, which read and built on the already-implemented auth/customer/catalog modules. Implemented `src/modules/availability/` (BR-AVAIL-1..11: compute slots, claim/release, force-claim/override, working hours, time off — same repository-interface pattern as Steps 3-5, `claimSlot` written to catch a `SlotConstraintViolationError` the Step 17 repository implementation will throw on a real DB race per NFR Design's insert-and-catch pattern) and `src/modules/booking/` (BR-BOOK-1..11, the Appointment/AppointmentLineItem status lifecycle including read-time auto-complete, and `markNoShow`, which the original Inception-stage `component-methods.md` never specified — built from booking-business-logic-model.md's Flow 7 instead). Key resolutions documented in code rather than silently decided: `claimSlot`/`forceClaimSlot` operate on a pre-computed `{start, durationMinutes}` rather than a `serviceId` (a multi-pet visit has several services, so availability never sees one); `createBooking`/`createOverrideBooking` take the already-approved per-pet-service-pairs shape; BR-AVAIL-9's appointment-flagging is split — availability only identifies affected appointment ids, `booking.flagAppointmentsForReview` does the actual write; all date/time math done in UTC pending an explicit shop-timezone decision (flagged, not assumed); `booking.updateVisitNotes` added since BR-BOOK-7 requires visit notes be editable but no flow lists a method for it. Verification: `tsc --noEmit`, `eslint .`, `next build`, `vitest run` all pass. Steps 6-7 marked `[x]` in the code-generation-plan.md. No git commit made.
+**Context**: CONSTRUCTION - Code Generation, Part 2 - Generation, Phase B (Steps 3-7 of 3-9 complete) -> continuing with Steps 8-9 (notification, reporting)
+
+---
+
+## Code Generation Part 2 — Steps 8-9 Complete; Phase B (Business Logic Generation) Complete
+**Timestamp**: 2026-09-02T00:00:00Z
+**User Input**: N/A (autonomous execution of the approved plan)
+**AI Response**: Delegated Steps 8-9 to a subagent. Implemented `src/modules/notification/` (BR-NOTIF-1..7: confirmation send, reminder scheduling with fixed daily send time + immediate-send fallback, the daily reminder batch job with per-reminder failure isolation, reminder cancellation on booking cancellation, cancellation confirmation) and `src/modules/reporting/` (BR-REPORT-1..4: This Week/This Month preset reports, appointment totals inclusive of cancelled appointments). Email sending is injected via an `EmailSender` interface (Resend wiring deferred to a later step, keeping the SDK out of the business-logic layer); SMS is implemented directly as the complete log-only stub (that IS the v1 SMS feature, not a deferred piece, per NFR Requirements Q6). Verified via a scratch compile-time check (since deleted) that `NotificationService` is structurally assignable to `booking`'s already-declared `NotificationCollaborator` interface with zero changes needed to `booking/`. Verification: `tsc --noEmit`, `eslint .`, `next build`, `vitest run` all pass. Steps 8-9 marked `[x]`. **This completes Phase B (Steps 3-9) — Business Logic Generation for all 7 modules — in full.** No git commit made by the subagents; committing the accumulated Code Generation work is being done next as a checkpoint.
+**Context**: CONSTRUCTION - Code Generation, Part 2 - Generation, Phase B (COMPLETE) -> Phase C (Business Logic Testing, Steps 10-11, starting next)
+
+---

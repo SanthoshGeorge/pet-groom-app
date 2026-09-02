@@ -1,10 +1,15 @@
 # Dependencies
 node_modules/
+/.pnp
+.pnp.*
 
 # Build output
 .next/
+out/
 dist/
 build/
+next-env.d.ts
+*.tsbuildinfo
 
 # Environment variables / secrets
 .env
@@ -17,3 +22,14 @@ build/
 
 # Local-only Claude Code settings
 .claude/settings.local.json
+
+# Testing
+/coverage
+
+# Vercel
+.vercel
+
+# Prisma
+# (generated client lives in node_modules by default and is already ignored above;
+# this covers a custom generator output directory if one is ever configured)
+prisma/generated/

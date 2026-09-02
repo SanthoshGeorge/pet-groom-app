@@ -41,8 +41,11 @@
 - **Internal build order**: auth/customer/catalog (foundational) -> availability -> booking (core) -> notification/reporting (leaf, alongside/after booking)
 
 ### 🟢 CONSTRUCTION PHASE
-- [ ] Functional Design (per unit) — EXECUTE (auth/customer/catalog: ✅ approved and complete; availability: artifacts generated, awaiting approval; booking/notification/reporting groups not yet started)
-- [ ] NFR Requirements (per unit) — EXECUTE (planned)
+- [x] Functional Design (per unit) — ✅ COMPLETE for all 7 modules (auth/customer/catalog, availability, booking, notification/reporting — 4 passes, all approved)
+- [x] NFR Requirements (per unit) — ✅ COMPLETE and approved
+- [x] NFR Design (per unit) — ✅ COMPLETE and approved
+- [x] Infrastructure Design (per unit) — ✅ COMPLETE and approved
+- [ ] Code Generation (per unit) — EXECUTE (Part 1 Planning: plan created, awaiting approval)
 - [ ] NFR Design (per unit) — EXECUTE (planned)
 - [ ] Infrastructure Design (per unit) — EXECUTE (planned)
 - [ ] Code Generation (per unit) — EXECUTE (always)
@@ -53,6 +56,6 @@
 
 ## Current Status
 - **Lifecycle Phase**: CONSTRUCTION
-- **Current Stage**: Functional Design — `availability` module group (second in build order)
-- **Next Stage**: (after this group's approval) Functional Design for `booking`
-- **Status**: Artifacts generated at `aidlc-docs/construction/pet-grooming-booking-platform/functional-design/` (availability-domain-entities.md, availability-business-rules.md, availability-business-logic-model.md), awaiting user approval
+- **Current Stage**: Code Generation, Part 2 - Generation (executing the approved 28-step plan)
+- **Next Stage**: (after all 28 steps complete) Build and Test
+- **Status**: Phase A complete (Steps 1-2). Phase B COMPLETE (Steps 3-9: all 7 modules' business logic — auth, customer, catalog, availability, booking, notification, reporting — implemented against repository interfaces, no direct Prisma dependency, verified via `tsc --noEmit`/`eslint`/`next build`/`vitest run` after each step group). Next: Phase C (Steps 10-11, Business Logic Testing).

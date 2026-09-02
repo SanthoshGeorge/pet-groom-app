@@ -1,0 +1,337 @@
+// Prisma schema — Pet Grooming Booking Platform
+//
+// Source of truth: every entity here is traced to one of the approved
+// Functional Design domain-entities files:
+//   - functional-design/domain-entities.md              (AuthIdentity, Session, Owner, Pet, Groomer, Service)
+//   - functional-design/availability-domain-entities.md  (WorkingHoursRule, TimeOff)
+//   - functional-design/booking-domain-entities.md       (Appointment, AppointmentLineItem)
+//   - functional-design/notification-business-rules.md   (ScheduledReminder — conceptual entity, BR-NOTIF-*)
+// `Slot` and `SlotClaim` from availability-domain-entities.md are NOT modeled here — both
+// are explicitly documented as computed/conceptual, not stored rows (see that file).
+//
+// This is Code Generation Step 2. `prisma migrate dev` is deliberately NOT run yet
+// (that's Step 26, after all business logic is generated) — this file is schema-only.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // Neon Postgres, pooled connection string (Infrastructure Design: Storage Infrastructure).
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Shared enums
+// ---------------------------------------------------------------------------
+
+/// AuthIdentity.role / Session.role — domain-entities.md
+enum AuthRole {
+  customer
+  owner
+}
+
+/// Appointment.createdBy / Appointment.cancelledBy — booking-domain-entities.md
+/// Same three-value set is used for both fields (who initiated / who cancelled).
+enum BookingActor {
+  guest
+  account
+  owner
+}
+
+/// Pet.size — domain-entities.md (Q7=A: fixed category, not used by any v1 business rule yet)
+enum PetSize {
+  Small
+  Medium
+  Large
+  XL
+}
+
+/// WorkingHoursRule.dayOfWeek — availability-domain-entities.md
+enum DayOfWeek {
+  Mon
+  Tue
+  Wed
+  Thu
+  Fri
+  Sat
+  Sun
+}
+
+/// Appointment.status — booking-domain-entities.md "Status Lifecycle"
+enum AppointmentStatus {
+  Booked
+  Completed
+  Cancelled
+  NoShow
+}
+
+/// ScheduledReminder.status — notification-business-rules.md "Conceptual Entity: ScheduledReminder"
+enum ReminderStatus {
+  Pending
+  Sent
+  Cancelled
+}
+
+// ---------------------------------------------------------------------------
+// auth module — domain-entities.md
+// ---------------------------------------------------------------------------
+
+model AuthIdentity {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  role         AuthRole
+  createdAt    DateTime  @default(now())
+  /// Not used in v1 (Q3=A: accounts active immediately) — reserved for future email verification.
+  verifiedAt   DateTime?
+
+  // Relationships:
+  // domain-entities.md documents this as a 1:1 between AuthIdentity and Owner, described
+  // from BOTH entities' own tables (`AuthIdentity.ownerId` here, `Owner.authIdentityId` on
+  // Owner) — that is one relationship, not two independent foreign keys. A single physical
+  // FK column is needed to avoid two nullable/unique columns on either side drifting out of
+  // sync; it is placed on `Owner.authIdentityId` (see note there) because that is the row
+  // that gets updated at "link/create account" time (RC-1). This model's side of the same
+  // relationship is expressed as the `owner` back-relation below — no physical `ownerId`
+  // column exists on this table. Flagged in the Code Generation report as a resolved
+  // documentation redundancy, not a dropped field: role=owner (shop-owner admin login) has
+  // no linked Owner row either way, which both documents already describe as the expected case.
+  owner    Owner?
+  sessions Session[]
+}
+
+model Session {
+  /// Opaque session token (BR-AUTH-4) — this IS the session identifier referenced from the
+  /// httpOnly cookie, not a separate internal id plus a distinct token value.
+  id             String    @id @default(cuid())
+  authIdentityId String
+  authIdentity   AuthIdentity @relation(fields: [authIdentityId], references: [id])
+  /// Denormalized from AuthIdentity for fast checks (domain-entities.md).
+  role           AuthRole
+  createdAt      DateTime  @default(now())
+  /// v1: no fixed expiry stored (cookie is browser-session-only, Q5=A) — reserved for a
+  /// future "remember me" option.
+  expiresAt      DateTime?
+
+  @@index([authIdentityId])
+}
+
+// ---------------------------------------------------------------------------
+// customer module — domain-entities.md
+// ---------------------------------------------------------------------------
+
+model Owner {
+  id             String    @id @default(cuid())
+  name           String
+  phone          String
+  email          String
+  address        String?
+  notes          String?
+  /// Set once this Owner links or creates an account (RC-1); null for guest-only owners.
+  /// See the note on AuthIdentity above — this is the physical FK for that shared 1:1.
+  authIdentityId String?      @unique
+  authIdentity   AuthIdentity? @relation(fields: [authIdentityId], references: [id])
+  createdAt      DateTime  @default(now())
+
+  pets         Pet[]
+  appointments Appointment[]
+}
+
+model Pet {
+  id                     String   @id @default(cuid())
+  ownerId                String
+  owner                  Owner    @relation(fields: [ownerId], references: [id])
+  name                   String
+  /// Free text (Q7=A — too many breeds/mixes to enumerate).
+  breed                  String
+  size                   PetSize
+  age                    Int?
+  temperamentNotes       String?
+  allergyMedicalNotes    String?
+  createdAt              DateTime @default(now())
+
+  appointmentLineItems AppointmentLineItem[]
+
+  @@index([ownerId])
+}
+
+/// Q6=A — minimal: no linked AuthIdentity in v1. Every Appointment auto-assigns the (today,
+/// only) Groomer (FR-2); no one logs in *as* a groomer yet.
+model Groomer {
+  id        String   @id @default(cuid())
+  name      String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  appointments Appointment[]
+}
+
+// ---------------------------------------------------------------------------
+// catalog module — domain-entities.md
+// ---------------------------------------------------------------------------
+
+model Service {
+  id               String   @id @default(cuid())
+  name             String
+  /// Current price (FR-1). Historical/booked prices live only on AppointmentLineItem's
+  /// priceSnapshot (BR-CAT-4) — this column is never read for an already-booked appointment.
+  price            Decimal  @db.Decimal(10, 2)
+  /// Current duration in minutes (FR-1) — used by `availability` for slot sizing.
+  durationMinutes  Int
+  /// false = deactivated (SO-4): hidden from booking, preserved for history.
+  active           Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  appointmentLineItems AppointmentLineItem[]
+}
+
+// ---------------------------------------------------------------------------
+// availability module — availability-domain-entities.md
+// `Slot` (computed output of getAvailableSlots) and `SlotClaim` (conceptual — an Appointment
+// row IS the claim) are intentionally not modeled as tables; see file header note.
+// ---------------------------------------------------------------------------
+
+/// One row per day of the week, always 7 rows total (Q6=A — single continuous range per day,
+/// no split/lunch-break schedules in v1). A day with no explicit configuration defaults to
+/// closed, but the design still expects all 7 rows to exist rather than relying on "row
+/// missing = closed".
+model WorkingHoursRule {
+  id        String    @id @default(cuid())
+  dayOfWeek DayOfWeek
+  /// false = closed all day (e.g. Sunday).
+  isOpen    Boolean
+  /// null when isOpen = false.
+  openTime  DateTime? @db.Time
+  /// null when isOpen = false.
+  closeTime DateTime? @db.Time
+
+  /// Exactly one WorkingHoursRule per dayOfWeek.
+  @@unique([dayOfWeek])
+}
+
+/// Q7=A — whole days only, no time-of-day fields; a TimeOff entry always blocks the full
+/// calendar day(s) in its range.
+model TimeOff {
+  id        String   @id @default(cuid())
+  /// Inclusive.
+  startDate DateTime @db.Date
+  /// Inclusive; equals startDate for a single day off.
+  endDate   DateTime @db.Date
+  /// Shop-owner-facing note only.
+  reason    String?
+  createdAt DateTime @default(now())
+}
+
+// ---------------------------------------------------------------------------
+// booking module — booking-domain-entities.md
+// ---------------------------------------------------------------------------
+
+model Appointment {
+  id                String            @id @default(cuid())
+  /// Unique, shop-prefixed short code (e.g. "HTG-4821") — Q7=A. Used for guest lookup (GC-3).
+  /// Generated at creation; regenerated on the rare collision (application-layer concern,
+  /// not enforced by a schema-level format check).
+  bookingReference  String            @unique
+  ownerId           String
+  owner             Owner             @relation(fields: [ownerId], references: [id])
+  groomerId         String
+  groomer           Groomer           @relation(fields: [groomerId], references: [id])
+  slotStart         DateTime
+  /// slotStart + sum of all line items' durationSnapshotMinutes (availability's BR-AVAIL-1).
+  slotEnd           DateTime
+  status            AppointmentStatus @default(Booked)
+  /// Who initiated it — GC-2/RC-2/SO-2 share one underlying flow, differing only here.
+  createdBy         BookingActor
+  /// True if created via createOverrideBooking and it fell outside normal hours/buffer/time-off
+  /// (SO-3) — drives the mockup's "OVERRIDE" badge.
+  isOverride        Boolean           @default(false)
+  /// True if an override created it while overlapping another appointment (SO-3's
+  /// warned-but-confirmed case).
+  hasConflict       Boolean           @default(false)
+  /// True if a later working-hours/time-off change orphaned this appointment
+  /// (availability's BR-AVAIL-9) — same visual treatment as isOverride on the admin calendar.
+  flaggedForReview  Boolean           @default(false)
+  /// True if either notification channel (or both) failed for a confirmation, cancellation-
+  /// confirmation, or reminder send (BR-NOTIF-4) — same visual treatment as isOverride /
+  /// flaggedForReview; tells the owner to call the customer directly. Not in
+  /// booking-domain-entities.md's own field table (that pass predates the notification pass)
+  /// but explicitly specified by BR-NOTIF-4 as living on Appointment.
+  notificationFailed Boolean          @default(false)
+  /// This-visit-only note (Q6=A) — separate from any pet's permanent notes.
+  visitNotes        String?
+  /// Set when status becomes Cancelled.
+  cancelledAt       DateTime?
+  cancelledBy       BookingActor?
+  createdAt         DateTime          @default(now())
+
+  lineItems          AppointmentLineItem[]
+  scheduledReminders ScheduledReminder[]
+
+  // Slot-uniqueness constraint — concrete implementation of BR-AVAIL-5 (atomic slot claims),
+  // per NFR Design's Resilience Patterns / logical-components.md "Database Constraint: Slot
+  // Uniqueness". Prisma has no native support for a Postgres EXCLUDE constraint (which would
+  // be the ideal mechanism for true [slotStart, slotEnd) interval-overlap prevention), so this
+  // unique constraint on (groomerId, slotStart) is the schema-level piece: claimSlot/
+  // forceClaimSlot insert directly and catch the constraint-violation error (the
+  // insert-and-catch pattern from nfr-design-patterns.md), rather than SELECT ... FOR UPDATE.
+  //
+  // NOTE (deferred to a later phase, deliberately not solved here): this only catches two
+  // appointments starting at the exact same instant for the same groomer. Two appointments
+  // whose ranges overlap without sharing an identical slotStart (e.g. a same-day override
+  // booking) are NOT caught by this constraint alone — true overlap-prevention is enforced in
+  // the repository layer's transaction logic (Step 17), which re-checks for any overlapping
+  // Booked appointment inside the same transaction as the insert. Also note this constraint
+  // does not exempt Cancelled/NoShow appointments from the uniqueness check (Prisma does not
+  // support partial/filtered unique indexes in the schema DSL); rebooking a cancelled slot's
+  // exact start time is therefore also a repository-layer/migration-level concern, not solved
+  // by this line alone.
+  @@unique([groomerId, slotStart])
+  @@index([slotStart])
+  @@index([ownerId])
+}
+
+model AppointmentLineItem {
+  id                       String      @id @default(cuid())
+  appointmentId            String
+  appointment              Appointment @relation(fields: [appointmentId], references: [id])
+  petId                    String
+  pet                      Pet         @relation(fields: [petId], references: [id])
+  serviceId                String
+  service                  Service     @relation(fields: [serviceId], references: [id])
+  /// Copied from Service.price at booking time (BR-CAT-4).
+  priceSnapshot            Decimal     @db.Decimal(10, 2)
+  /// Copied from Service.durationMinutes at booking time (BR-CAT-4).
+  durationSnapshotMinutes  Int
+
+  @@index([appointmentId])
+}
+
+// ---------------------------------------------------------------------------
+// notification module — notification-business-rules.md "Conceptual Entity: ScheduledReminder"
+// ---------------------------------------------------------------------------
+
+/// Not a user-facing entity — an internal marker so cancelScheduledReminder has something to
+/// cancel and the daily batch job (BR-NOTIF-1) has something to send.
+///
+/// Modeled as Appointment 1 --- * ScheduledReminder (not 1:1): BR-NOTIF-6 has rescheduling
+/// cancel the old Pending row and run scheduleReminder again, which can produce a new row
+/// rather than mutate the old one — so an appointment that's been rescheduled once can have
+/// more than one ScheduledReminder row over its lifetime (at most one still Pending at a
+/// time, which is what "one per appointment that has a pending reminder" in the source doc
+/// describes). A short-notice booking (BR-NOTIF-2) sends immediately and may create zero
+/// rows for that appointment.
+model ScheduledReminder {
+  id            String         @id @default(cuid())
+  appointmentId String
+  appointment   Appointment    @relation(fields: [appointmentId], references: [id])
+  /// The fixed daily send time on the day before slotStart (BR-NOTIF-1), or null if it was
+  /// sent immediately (BR-NOTIF-2).
+  sendAt        DateTime?
+  status        ReminderStatus @default(Pending)
+
+  @@index([appointmentId])
+  @@index([status, sendAt])
+}
