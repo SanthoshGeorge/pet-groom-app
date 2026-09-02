@@ -45,11 +45,8 @@
 - [x] NFR Requirements (per unit) — ✅ COMPLETE and approved
 - [x] NFR Design (per unit) — ✅ COMPLETE and approved
 - [x] Infrastructure Design (per unit) — ✅ COMPLETE and approved
-- [ ] Code Generation (per unit) — EXECUTE (Part 1 Planning: plan created, awaiting approval)
-- [ ] NFR Design (per unit) — EXECUTE (planned)
-- [ ] Infrastructure Design (per unit) — EXECUTE (planned)
-- [ ] Code Generation (per unit) — EXECUTE (always)
-- [ ] Build and Test — EXECUTE (always)
+- [x] Code Generation (per unit) — ✅ ALL 28 STEPS COMPLETE (Part 1 Planning approved; Part 2 Generation Phases A-K all complete). Presenting completion message, awaiting user approval.
+- [ ] Build and Test — EXECUTE (always) — next stage, pending approval of Code Generation
 
 ### 🟡 OPERATIONS PHASE
 - [ ] Operations — PLACEHOLDER (not implemented in this toolkit version)
@@ -58,4 +55,4 @@
 - **Lifecycle Phase**: CONSTRUCTION
 - **Current Stage**: Code Generation, Part 2 - Generation (executing the approved 28-step plan)
 - **Next Stage**: (after all 28 steps complete) Build and Test
-- **Status**: Phases A-H complete (Steps 1-23: scaffold, Prisma schema, business logic + unit tests, all 21 API routes + tests (262 passing), Prisma repositories + integration test suite (blocked on `prisma generate` running somewhere with network access — Vercel build or the user's machine), and the full frontend — public site, auth/account, and admin — all with data-testid coverage). Committed through commit a203e37 (Phases C-F); Phases G-H not yet committed. Next: Phase I (Steps 24-25, Frontend Components Testing).
+- **Status**: **ALL 28 STEPS OF THE CODE GENERATION PLAN COMPLETE.** Full stack built: 7 business-logic modules, 21 API routes, full frontend (public/auth/admin), 326 passing tests, a hand-authored+PGlite-verified initial DB migration, README/vercel.json/.env.example/deployment scripts. Remaining known gap (documented, not hidden): the Prisma-backed repository layer and its integration tests are complete, real code but cannot run in this dev container (`prisma generate` needs network access this container's policy blocks) — everything above that layer (business logic, API routes, 326 tests) is fully verified; the repository layer needs `npx prisma generate` run once in an environment with real network access (Vercel's build, or the user's machine) to go live, which is a normal, expected step for any Prisma+Vercel project, not a defect. Committed through commit 09ee903 (Phases G-H); Phases I-K (component tests, migration, docs/deployment) not yet committed. Presenting the Code Generation Complete message next, per the code-generation rule's Step 14, and awaiting explicit user approval before proceeding to Build and Test.

@@ -1,3 +1,15 @@
+/**
+ * PATCH /api/bookings/:id
+ *
+ * Auth: owner session (any appointment), customer session (own appointments only), or
+ *   guest proof via { bookingReference, contact } (BR-BOOK-5 mechanism) — tried in that
+ *   order; none satisfied -> 401.
+ * Body: { action: "cancel" } or { action: "reschedule", slotStart } — plus
+ *   bookingReference/contact when acting as a guest.
+ * Response: 200 { appointment }.
+ * Errors: 400 invalid action/slotStart, 401 no valid proof of ownership, 404 unknown id or
+ *   guest-proof mismatch, 409 appointment in a terminal/non-modifiable state (BR-BOOK-6).
+ */
 // PATCH /api/bookings/:id — GC-3/RC-3 self-service cancel/reschedule, plus (owner session)
 // SO-1's "cancel any appointment". Body: `{ action: "cancel" }` or
 // `{ action: "reschedule", slotStart: string }`. BR-BOOK-3/6/9/10.

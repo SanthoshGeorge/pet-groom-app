@@ -1,3 +1,12 @@
+/**
+ * POST /api/auth/forgot-password
+ *
+ * Auth: none (public).
+ * Body: { email }.
+ * Response: 200 { message } — always the same generic message, whether or not the email
+ *   matched an account (BR-AUTH-3's enumeration-resistance guarantee).
+ * Errors: 400 missing email.
+ */
 // POST /api/auth/forgot-password — Flow 4, steps 1-2. BR-AUTH-3.
 //
 // Per auth/service.ts's own doc comment, `requestPasswordReset` deliberately resolves to

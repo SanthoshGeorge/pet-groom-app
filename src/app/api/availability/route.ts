@@ -1,3 +1,11 @@
+/**
+ * GET /api/availability?serviceId=<id>&start=<ISO date>&end=<ISO date>
+ *
+ * Auth: none (public).
+ * Query: serviceId, start, end — all required. Computed live, no caching.
+ * Response: 200 { slots }.
+ * Errors: 400 missing/invalid serviceId, start, or end; 404 unknown/inactive serviceId.
+ */
 // GET /api/availability?serviceId=<id>&start=<ISO date>&end=<ISO date> — GC-1/RC-1 slot
 // browsing (BR-AVAIL-1/3/4/8), computed live with no caching per nfr-design-patterns.md's
 // Scalability Patterns. Thin wrapper over `availability.getAvailableSlots(dateRange,

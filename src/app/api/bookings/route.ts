@@ -1,3 +1,13 @@
+/**
+ * POST /api/bookings
+ *
+ * Auth: none required. An unauthenticated caller books as guest (contact required); a
+ *   role=customer session books against their own linked Owner (contact ignored).
+ * Body: { contact?, pets: [{ petId? | newPet?, serviceId }], slotStart, visitNotes? }.
+ * Response: 201 { appointment }.
+ * Errors: 400 malformed body/missing contact, 404 unknown pet/service, 409 slot
+ *   unavailable (BR-AVAIL-5/6).
+ */
 // POST /api/bookings — GC-2 (guest) and RC-2 (account-linked customer); both share one
 // flow (`booking.createBooking`), differing only in `createdBy`/`owner` (BR-BOOK-1/8/9,
 // BR-AVAIL-5/6).

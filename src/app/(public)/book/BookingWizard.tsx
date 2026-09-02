@@ -78,6 +78,9 @@ export function BookingWizard({ initialServiceId }: { initialServiceId: string |
 
   function handleSelectSlot(next: Slot) {
     setSlot(next);
+    // Clear a stale 409 conflict message once the user picks a new slot (see the
+    // handleSubmit catch block below, and step 2's WizardFooter's `error` prop).
+    setSubmitError(null);
   }
 
   async function handleSubmit() {
@@ -189,6 +192,7 @@ export function BookingWizard({ initialServiceId }: { initialServiceId: string |
           <WizardFooter
             label="Continue to Your Details"
             disabled={!slot}
+            error={submitError}
             onClick={() => slot && setStep(3)}
             testId="booking-wizard-continue-to-details-button"
           />

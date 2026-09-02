@@ -1,3 +1,12 @@
+/**
+ * POST /api/bookings/lookup
+ *
+ * Auth: none (public) — proof is knowledge of bookingReference + matching contact info.
+ * Body: { bookingReference, contact: { email?, phone? } }.
+ * Response: 200 { appointment }.
+ * Errors: 400 missing bookingReference/contact, 404 no match — identical response whether
+ *   the reference is unknown or the contact doesn't match (BR-BOOK-5).
+ */
 // POST /api/bookings/lookup — GC-3 guest self-service lookup by reference + contact info.
 // BR-BOOK-5.
 //

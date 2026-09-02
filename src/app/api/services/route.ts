@@ -1,3 +1,10 @@
+/**
+ * GET /api/services
+ *
+ * Auth: none (public).
+ * Body: none.
+ * Response: 200 { services } — only active (bookable) services (BR-CAT-1).
+ */
 // GET /api/services — FR-1 catalog browsing. BR-CAT-1: only `active = true` (bookable)
 // services are returned, via `catalog.listActiveServices()`.
 

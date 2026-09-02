@@ -1,3 +1,15 @@
+/**
+ * GET /api/account/pets
+ * PATCH /api/account/pets
+ *
+ * Auth: session cookie required, role=customer (401 otherwise).
+ * Body (PATCH only): { petId?, name?, breed?, size?, age?, temperamentNotes?,
+ *   allergyMedicalNotes? } — omit petId to add a new pet (name/breed/size required),
+ *   supply petId to update an existing one owned by the caller.
+ * Response: 200 { owner } (GET); 200 { pet } (PATCH update) or 201 { pet } (PATCH add).
+ * Errors: 400 invalid size/missing fields, 401 no/invalid session, 404 account or pet
+ *   not found.
+ */
 // GET /api/account/pets — RC-1: the logged-in customer's own Owner + pets.
 // PATCH /api/account/pets — add a new pet (no `petId` in the body) or update an existing
 // one (`petId` supplied) belonging to the logged-in customer's own Owner record. BR-CUST-5

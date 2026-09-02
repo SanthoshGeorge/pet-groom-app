@@ -1,3 +1,11 @@
+/**
+ * GET /api/admin/appointments?start=<ISO date>&end=<ISO date>
+ *
+ * Auth: session cookie required, role=owner (401/403 otherwise).
+ * Query: start, end — both required (no unbounded "list everything" mode).
+ * Response: 200 { appointments }.
+ * Errors: 400 missing/invalid start or end, 401 no session, 403 non-owner session.
+ */
 // GET /api/admin/appointments?start=<ISO date>&end=<ISO date> — SO-1's admin calendar,
 // owner-only. Thin wrapper over `booking.listAllBookings({ start, end })` (Flow 6 of
 // booking-business-logic-model.md).

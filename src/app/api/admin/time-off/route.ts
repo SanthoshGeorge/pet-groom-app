@@ -1,3 +1,12 @@
+/**
+ * POST /api/admin/time-off
+ *
+ * Auth: session cookie required, role=owner (401/403 otherwise).
+ * Body: { startDate, endDate, reason? } — whole calendar days only (BR-AVAIL-8).
+ * Response: 201 { timeOff, affectedAppointmentIds } — affected appointments are also
+ *   flagged for review server-side (BR-AVAIL-9) before the response is returned.
+ * Errors: 400 missing/invalid dates, 401 no session, 403 non-owner session.
+ */
 // POST /api/admin/time-off — SO-5, adding a time-off block (Flow 6 of
 // availability-business-logic-model.md). Owner-only. BR-AVAIL-8 (whole calendar days only)
 // is enforced by `availability.addTimeOff` itself (`AvailabilityValidationError` -> 400);

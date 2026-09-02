@@ -1,3 +1,12 @@
+/**
+ * POST /api/admin/hours
+ *
+ * Auth: session cookie required, role=owner (401/403 otherwise).
+ * Body: { schedule: WorkingHoursRuleInput[] } — exactly 7 entries, one per day (BR-AVAIL-7).
+ * Response: 200 { workingHours, affectedAppointmentIds } — affected appointments are also
+ *   flagged for review server-side (BR-AVAIL-9) before the response is returned.
+ * Errors: 400 malformed/invalid schedule, 401 no session, 403 non-owner session.
+ */
 // POST /api/admin/hours — SO-5, setting the shop's regular weekly working hours
 // (Flow 5 of availability-business-logic-model.md). Owner-only. BR-AVAIL-7 (exactly one
 // rule per day, all 7 required) is enforced by `availability.setWorkingHours` itself

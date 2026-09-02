@@ -57,15 +57,15 @@ This plan is the single source of truth for Code Generation. Every step below is
 - [x] **Step 23**: Every interactive element gets a stable `data-testid` per the Critical Rules' automation-friendly convention (`{component}-{element-role}` naming).
 
 ### Phase I — Frontend Components Testing
-- [ ] **Step 24**: Vitest + React Testing Library component tests — form validation (e.g. `ServiceForm`'s required-field rules from BR-CAT-5), conditional rendering (e.g. the `isOverride`/`hasConflict`/`notificationFailed` badges), and state transitions.
-- [ ] **Step 25**: Frontend Components Summary — `aidlc-docs/construction/pet-grooming-booking-platform/code/frontend-summary.md`.
+- [x] **Step 24**: Vitest + React Testing Library component tests — form validation (e.g. `ServiceForm`'s required-field rules from BR-CAT-5), conditional rendering (e.g. the `isOverride`/`hasConflict`/`notificationFailed` badges), and state transitions.
+- [x] **Step 25**: Frontend Components Summary — `aidlc-docs/construction/pet-grooming-booking-platform/code/frontend-summary.md`.
 
 ### Phase J — Database Migration Scripts
-- [ ] **Step 26**: Generate the initial Prisma migration (`prisma migrate dev`) from the Step 2 schema — the actual SQL migration files, committed to `prisma/migrations/`.
+- [x] **Step 26**: Generate the initial Prisma migration (`prisma migrate dev`) from the Step 2 schema — the actual SQL migration files, committed to `prisma/migrations/`.
 
 ### Phase K — Documentation & Deployment Artifacts
-- [ ] **Step 27**: `README.md` (setup instructions, environment variables per `deployment-architecture.md`'s table, how to run tests/migrations locally) and inline API documentation.
-- [ ] **Step 28**: Deployment artifacts — `vercel.json` (cron schedule for the reminder job, per NFR Requirements Q7/Infrastructure Design), `.env.example` (every variable from `deployment-architecture.md`'s table, no real values), and `package.json` scripts for build/test/migrate.
+- [x] **Step 27**: `README.md` (setup instructions, environment variables per `deployment-architecture.md`'s table, how to run tests/migrations locally) and inline API documentation.
+- [x] **Step 28**: Deployment artifacts — `vercel.json` (cron schedule for the reminder job, per NFR Requirements Q7/Infrastructure Design), `.env.example` (every variable from `deployment-architecture.md`'s table, no real values), and `package.json` scripts for build/test/migrate.
 
 ## Story Traceability Summary
 

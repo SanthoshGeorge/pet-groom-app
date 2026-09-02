@@ -1,36 +1,183 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pet Grooming Booking Platform
 
-## Getting Started
+A booking website for a real, single-location pet grooming shop. Customers browse services
+and available appointment slots, book (as a guest or a registered account), and manage
+their own bookings; the shop owner runs their whole calendar, catalog, working hours, and
+weekly/monthly reporting from an admin site — all one Next.js deployment, one database, one
+person maintaining it.
 
-First, run the development server:
+## Features
+
+- **Public site** — service menu, photo gallery, about/contact info, and a guided booking
+  flow (choose service(s)/pet(s) → pick a slot → confirm), open to guests and logged-in
+  customers alike.
+- **Guest self-service** — look up a booking by reference + contact info and cancel or
+  reschedule it, with no account required (the lookup deliberately returns the same
+  generic response whether the reference is unknown or the contact doesn't match, so it
+  can't be used to probe for valid booking references).
+- **Customer accounts** — register/login, manage pets on file (size, breed, notes),
+  and view/manage bookings tied to the account.
+- **Owner admin dashboard** — a full calendar view of appointments, booking on a customer's
+  behalf (including override bookings outside normal hours, with a conflict warning),
+  marking a completed appointment as a no-show, catalog management (add/edit/deactivate
+  services), setting weekly working hours and time-off blocks, and week/month reports.
+- **Notifications** — booking confirmation and cancellation emails (via Resend), plus a
+  daily reminder batch job for appointments coming up soon; SMS sends currently a
+  log-only stub (no real SMS provider wired in yet — see `.env.example`).
+
+This is a full implementation of all 13 approved user stories (`GC-1..3`, `RC-1..3`,
+`SO-1..6`) — see `aidlc-docs/construction/pet-grooming-booking-platform/` for the
+functional design, NFR, and infrastructure artifacts this app was built from, and
+`aidlc-docs/construction/plans/pet-grooming-booking-platform-code-generation-plan.md` for
+the step-by-step build log.
+
+## Tech stack
+
+- **Next.js 14+ (App Router) + TypeScript** — one deployable covering the public site, the
+  admin site, and all API routes (Route Handlers).
+- **PostgreSQL via Prisma**, using Prisma's driver-adapter mode (`@prisma/adapter-pg` +
+  `pg`) rather than Prisma's native query-engine binary — see "About this repo's Prisma
+  setup" below. Production database is [Neon](https://neon.tech) (serverless Postgres).
+- **Hand-rolled authentication** — `bcryptjs` password hashing, an opaque session token in
+  an `httpOnly`, `Secure` cookie (no managed auth provider; see
+  `tech-stack-decisions.md` for why).
+- **[Resend](https://resend.com)** for transactional email.
+- **[Vercel](https://vercel.com)** for hosting, including Vercel Cron for the daily
+  reminder job.
+- **Vitest** (+ React Testing Library for components) for all testing.
+
+## Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <this repo>
+cd pet-groom-app
+npm install                      # also runs `prisma generate` via postinstall (see below)
+cp .env.example .env             # then fill in real values — see "Environment variables"
+npx prisma migrate deploy        # applies prisma/migrations/ to the database in DATABASE_URL
+npm run dev                      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+For local development, `DATABASE_URL` can point at any Postgres instance (a local
+Postgres, Docker, or a free Neon branch) — it doesn't have to be the production database.
+For production, it's the Neon connection string from the Vercel project's environment
+variables (see "Deployment" below).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### About this repo's Prisma setup (`npx prisma generate`)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Every Prisma project needs `npx prisma generate` run once before the app builds or runs —
+that's what produces `@prisma/client`'s generated TypeScript types, and it's standard for
+*any* Prisma project, not specific to this one. `npm install` already runs it automatically
+via the `postinstall` script, but if you ever see a `next dev`/`next build` failure
+complaining that `@prisma/client` has no exported members, re-run `npx prisma generate`
+manually.
 
-## Learn More
+This project also uses Prisma's newer JS/WASM Schema Engine (`engine: "js"` in
+`prisma.config.ts`) together with the `@prisma/adapter-pg` driver adapter, instead of
+Prisma's native Rust query-engine binary — a genuine, supported Prisma 6.x feature, and
+independently good practice for a serverless Postgres provider like Neon (driver adapters
+are Prisma's own recommended pattern there). One historical note, relevant only if you're
+reading `prisma/migrations/20260902020000_init/migration.sql`'s header comment: the very
+first migration in this repo was hand-authored and verified against an offline WASM
+Postgres (PGlite) rather than generated by `prisma migrate dev`, because the sandboxed
+container this project was originally built in blocked outbound access to Prisma's
+engine-binary download host. **That was a one-time limitation of that build container, not
+an ongoing setup step** — on a normal developer machine or in Vercel's build (both with
+normal internet access), `prisma generate` and `prisma migrate dev`/`migrate deploy` all
+just work, no special handling needed. The migration file's own header recommends running
+`npx prisma migrate diff` once real network access is available, as a cheap confirmation
+that the hand-authored SQL matches what Prisma's engine would have produced — worth doing
+once, not a blocker to using the app.
 
-To learn more about Next.js, take a look at the following resources:
+## Environment variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+All four variables below (and only these four) come from
+`aidlc-docs/construction/pet-grooming-booking-platform/infrastructure-design/deployment-architecture.md`'s
+environment variable table. See `.env.example` for placeholder-shaped values to copy from.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Variable | Purpose | Where to get it |
+|---|---|---|
+| `DATABASE_URL` | Neon pooled Postgres connection string | Neon dashboard → your project → Connection Details → "Pooled connection" |
+| `SESSION_SECRET` | Signs/encrypts the session cookie (BR-AUTH-4) | Generate it yourself — a long random string, e.g. `openssl rand -base64 32` |
+| `RESEND_API_KEY` | Transactional email (confirmations, cancellations, password reset) | Resend dashboard → API Keys → Create API Key |
+| `CRON_SECRET` | Shared secret the reminder job's route checks (`Authorization: Bearer <CRON_SECRET>`) | Generate it yourself — same as `SESSION_SECRET` |
 
-## Deploy on Vercel
+SMS provider credentials are intentionally absent — the current SMS "send" is a log-only
+stub, so no credentials are needed for it yet.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Running tests
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm test              # 326 unit + component + API-route integration tests, no database needed
+npm run test:watch    # the same, in watch mode
+```
+
+These run entirely against in-memory fake repositories (`tests/fakes/`) — no database
+connection is required or used.
+
+Two further test suites need a real, disposable Postgres database and are **not** part of
+`npm test`:
+
+```bash
+# Repository-layer integration tests (Step 18) — proves the real Prisma repositories work
+# against actual Postgres, including a concurrent-request test for the slot-uniqueness
+# guarantee. Needs `npx prisma generate` already run and DATABASE_URL pointed at a
+# disposable test database with the schema migrated onto it (see vitest.integration.config.mts's
+# own header comment for the full explanation):
+DATABASE_URL="postgresql://...disposable-test-db..." npm run test:integration
+
+# Applying the initial migration to a fresh database (see prisma/migrations/ and the
+# "About this repo's Prisma setup" section above for how it was produced/verified):
+npx prisma migrate deploy
+```
+
+## Deployment
+
+Per `deployment-architecture.md`: push to the GitHub repo, Vercel's GitHub integration
+builds and deploys automatically (single production environment — no separate staging, per
+NFR Requirements Q9). Set the four environment variables above in the Vercel project's
+Environment Variables settings before the first deploy.
+
+`vercel.json` configures the daily reminder job as a Vercel Cron entry hitting
+`POST /api/cron/reminders`. That route authenticates purely via the `CRON_SECRET`
+environment variable — Vercel automatically sends it as `Authorization: Bearer
+<CRON_SECRET>` on every Cron invocation once the variable is set in the project, so no
+further Vercel configuration is needed beyond setting `CRON_SECRET`. Without it, every
+cron invocation is rejected with 401 (see `src/app/api/cron/reminders/route.ts`).
+
+**Known limitation, called out explicitly rather than silently assumed away:** no shop
+timezone has been pinned down by any design artifact (flagged since the availability
+pass — see `src/modules/availability/time.ts`'s header comment). `vercel.json`'s cron
+schedule (`0 9 * * *`, i.e. 09:00 UTC daily) matches `REMINDER_SEND_TIME` (`"09:00"`,
+`src/modules/notification/config.ts`) using the same "treat shop wall-clock time as UTC
+field accessors" convention the rest of the codebase already uses in the absence of a real
+timezone. Once the shop's actual timezone is confirmed, this schedule should be adjusted
+to fire at 09:00 in that timezone's actual UTC offset.
+
+## Project structure
+
+```
+src/
+  modules/        Business logic — one folder per domain module (auth, customer, catalog,
+                   availability, booking, notification, reporting). Pure TypeScript, no
+                   Prisma/HTTP imports; each depends only on its own repository interface.
+                   src/modules/*/prisma/repository.ts holds the real Prisma-backed
+                   implementations of those interfaces.
+  app/api/         Next.js Route Handlers — one file per resource, fronting the modules
+                   above. See each route.ts's header doc comment for method/auth/body/
+                   response/status codes.
+  app/(public)/    Public site pages — home, services, gallery, about, booking flow,
+                   login/signup/account.
+  app/(admin)/     Owner-only admin site pages — calendar, new booking, services, reports.
+  server/          Shared server-side plumbing: the service composition root
+                   (container.ts), HTTP response/error helpers (http.ts), session helpers.
+prisma/
+  schema.prisma    The full data model (all 7 modules' entities).
+  migrations/      SQL migrations, starting with the hand-verified initial migration.
+prisma.config.ts    Prisma CLI config (JS/WASM schema engine + driver adapter — see above).
+tests/               Vitest suites: tests/modules (business logic), tests/api (route
+                   handlers against fakes), tests/integration/repositories (real-Postgres,
+                   run separately — see vitest.integration.config.mts).
+aidlc-docs/          The full design/planning trail this app was built from (functional
+                   design, NFR requirements, infrastructure design, and this Code
+                   Generation plan) — not application code.
+```

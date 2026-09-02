@@ -1,3 +1,10 @@
+/**
+ * POST /api/auth/logout
+ *
+ * Auth: none required (idempotent — safe to call with no session).
+ * Body: none. Clears the "session" cookie regardless of outcome.
+ * Response: 200 { success: true }.
+ */
 // POST /api/auth/logout — idempotent (auth.logout doesn't error on an already-gone
 // session, per its own doc comment). Clears the "session" cookie regardless of whether a
 // token was even present.

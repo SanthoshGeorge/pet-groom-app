@@ -1,3 +1,12 @@
+/**
+ * POST /api/cron/reminders
+ *
+ * Auth: shared-secret header, `Authorization: Bearer <CRON_SECRET>` — no session cookie.
+ *   Set automatically by Vercel Cron when CRON_SECRET is configured (see vercel.json).
+ * Body: none.
+ * Response: 200 { result: { processed, sent, failedCount } }.
+ * Errors: 401 missing/mismatched header, or CRON_SECRET unconfigured server-side.
+ */
 // POST /api/cron/reminders — the daily reminder batch job (Flow 3 of
 // notification-business-logic-model.md, BR-NOTIF-1/3/4), triggered by Vercel Cron per
 // deployment-architecture.md ("Vercel Cron --shared-secret header--> Next.js app's reminder

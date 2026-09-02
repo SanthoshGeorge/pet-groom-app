@@ -1,3 +1,13 @@
+/**
+ * PATCH /api/admin/services/:id
+ *
+ * Auth: session cookie required, role=owner (401/403 otherwise).
+ * Body: { active: false } to deactivate, OR { name?, price?, durationMinutes? } to edit
+ *   (at least one field required). { active: true } is rejected — no reactivate operation.
+ * Response: 200 { service }.
+ * Errors: 400 empty/invalid body or active:true, 401 no session, 403 non-owner session,
+ *   404 unknown id.
+ */
 // PATCH /api/admin/services/:id — SO-4, catalog management: edit a service's live fields
 // (BR-CAT-3, price/duration changes never retroactively touch past appointments — see
 // `catalog.updateService`'s own doc comment) or deactivate it (BR-CAT-2, soft-delete only).

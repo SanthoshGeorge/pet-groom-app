@@ -1,3 +1,13 @@
+/**
+ * POST /api/admin/bookings
+ *
+ * Auth: session cookie required, role=owner (401/403 otherwise).
+ * Body: { ownerId? | contact?, pets: [{ petId? | newPet?, serviceId }], slotStart,
+ *   visitNotes? } — exactly one of ownerId/contact; each pet exactly one of petId/newPet.
+ * Response: 201 { appointment } — isOverride/hasConflict flags reflect BR-AVAIL-10 checks.
+ * Errors: 400 malformed body, 401 no session, 403 non-owner session, 404 unknown
+ *   owner/pet/service.
+ */
 // POST /api/admin/bookings — SO-3, the shop owner booking on behalf of a customer, with the
 // override/conflict-warning variant (Flow 2 of booking-business-logic-model.md, BR-AVAIL-10,
 // BR-BOOK-11). Owner-only. Calls `booking.createOverrideBooking`, never the plain

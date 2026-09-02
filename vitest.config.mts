@@ -1,13 +1,30 @@
 import { defineConfig, defaultExclude } from "vitest/config";
+import react from "@vitejs/plugin-react";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  // Code Generation Step 24 adds `@vitejs/plugin-react` so the new `.tsx` component test
+  // files (tests/components/**) get a proper React JSX transform. It's a no-op for every
+  // pre-existing `.ts` test file (Steps 10/15/18's module/API/repository suites) — Vite only
+  // applies a React-specific transform to files it recognizes as JSX-bearing.
+  plugins: [react()],
   test: {
+    // Default environment stays "node" for the whole suite (unchanged from Steps 1-23) — the
+    // new component tests under tests/components/** opt into a DOM environment individually
+    // via a `// @vitest-environment jsdom` pragma comment at the top of each file, rather
+    // than switching every existing test (262 of them, none touching the DOM) to jsdom
+    // globally. jsdom (not happy-dom) was chosen as the more complete/standard DOM
+    // implementation, and is what `@testing-library/react`'s own docs default to.
     environment: "node",
-    include: ["tests/**/*.{test,spec}.ts", "src/**/*.{test,spec}.ts"],
+    // Registers tests/setup/rtl.ts (jest-dom matchers + automatic post-test unmount) for
+    // every test file; the setup file itself no-ops outside a DOM (jsdom) environment, so
+    // it's safe to load globally rather than needing a second, component-only Vitest
+    // project/config just to scope it.
+    setupFiles: ["./tests/setup/rtl.ts"],
+    include: ["tests/**/*.{test,spec}.{ts,tsx}", "src/**/*.{test,spec}.{ts,tsx}"],
     // Code Generation Step 18's real-Postgres repository integration tests
     // (tests/integration/repositories/**) are EXCLUDED from this default config on
     // purpose — they import the real Prisma-backed repository files

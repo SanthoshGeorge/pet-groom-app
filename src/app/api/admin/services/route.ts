@@ -1,3 +1,11 @@
+/**
+ * POST /api/admin/services
+ *
+ * Auth: session cookie required, role=owner (401/403 otherwise).
+ * Body: { name, price, durationMinutes } — all required (BR-CAT-5).
+ * Response: 201 { service }.
+ * Errors: 400 missing/invalid fields, 401 no session, 403 non-owner session.
+ */
 // POST /api/admin/services — SO-4, catalog management: create a new bookable service.
 // Owner-only. BR-CAT-5 (name/price/duration all required) is enforced by
 // `catalog.createService` itself (`CatalogValidationError` -> 400); this route does the same

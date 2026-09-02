@@ -1,3 +1,11 @@
+/**
+ * GET /api/admin/reports?period=ThisWeek|ThisMonth
+ *
+ * Auth: session cookie required, role=owner (401/403 otherwise).
+ * Query: period — "ThisWeek" or "ThisMonth" (BR-REPORT-1).
+ * Response: 200 { summary }.
+ * Errors: 400 missing/invalid period, 401 no session, 403 non-owner session.
+ */
 // GET /api/admin/reports?period=ThisWeek|ThisMonth — SO-6, BR-REPORT-1..4. Owner-only. Thin
 // wrapper over `reporting.getAppointmentSummary(period)`.
 //

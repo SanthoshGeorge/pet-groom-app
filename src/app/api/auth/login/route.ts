@@ -1,3 +1,11 @@
+/**
+ * POST /api/auth/login
+ *
+ * Auth: none (public). Sets the httpOnly "session" cookie on success.
+ * Body: { email, password }.
+ * Response: 200 { identity }.
+ * Errors: 400 missing fields, 401 invalid credentials (generic message either way).
+ */
 // POST /api/auth/login — Flow 3. BR-AUTH-4: on success, sets the httpOnly "session" cookie
 // (see src/server/session.ts) with no fixed expiry (browser-session-only). Returns the
 // public identity (never the password hash — `auth.login` already strips it).

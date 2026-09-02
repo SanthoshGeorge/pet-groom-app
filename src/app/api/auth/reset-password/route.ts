@@ -1,3 +1,11 @@
+/**
+ * POST /api/auth/reset-password
+ *
+ * Auth: none (public) — authorization is possession of a valid reset token.
+ * Body: { token, newPassword }.
+ * Response: 200 { message }. Does not log the caller in or set a session cookie.
+ * Errors: 400 missing fields or invalid/expired token.
+ */
 // POST /api/auth/reset-password — Flow 4, step 3. BR-AUTH-3: invalidates every one of the
 // identity's existing sessions on success (auth/service.ts). This route does NOT log the
 // caller back in or set a session cookie — they're expected to log in fresh with the new
